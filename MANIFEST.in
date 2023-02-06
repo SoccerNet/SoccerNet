@@ -1,0 +1,28 @@
+include SoccerNet/data/SoccerNetGamesTrain.json
+include SoccerNet/data/SoccerNetGamesValid.json
+include SoccerNet/data/SoccerNetGamesTest.json
+include SoccerNet/data/SoccerNetGamesChallenge.json
+include SoccerNet/data/SoccerNetCameraChangesTrain.json
+include SoccerNet/data/SoccerNetCameraChangesValid.json
+include SoccerNet/data/SoccerNetCameraChangesTest.json
+include SoccerNet/data/SoccerNetCameraChangesChallenge.json
+include SoccerNet/data/SoccerNetFramesTrain.json
+include SoccerNet/data/SoccerNetFramesValid.json
+include SoccerNet/data/SoccerNetFramesTest.json
+include SoccerNet/data/SoccerNetFramesChallenge.json
+include SoccerNet/data/BallTrain.json
+include SoccerNet/data/BallValid.json
+include SoccerNet/data/BallTest.json
+include SoccerNet/data/BallChallenge.json
+include SoccerNet/data/HeadersTrain.json
+include SoccerNet/data/HeadersValid.json
+include SoccerNet/data/HeadersTest.json
+include SoccerNet/data/HeadersChallenge.json
+include SoccerNet/data/SoccerNetCaptionTrain.json
+include SoccerNet/data/SoccerNetCaptionValid.json
+include SoccerNet/data/SoccerNetCaptionTest.json
+include SoccerNet/data/SoccerNetCaptionChallenge.json
+include SoccerNet/data/SNMOT-test.txt
+include SoccerNet/data/SNMOT-challenge.txt
+recursive-include SoccerNet *.py
+
