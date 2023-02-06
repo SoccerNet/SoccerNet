@@ -119,4 +119,4 @@ if __name__ == "__main__":
                         default="")
     parsed_args = parser.parse_args()
 
-    main(parsed_args.groundtruth, parsed_args.ranking_results)
+    evaluate(parsed_args.groundtruth, parsed_args.ranking_results)
