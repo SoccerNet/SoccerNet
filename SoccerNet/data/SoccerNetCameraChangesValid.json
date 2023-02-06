@@ -1,0 +1,80 @@
+{
+    "england_epl": {
+        "2014-2015": [
+            "2015-02-21 - 18-00 Chelsea 1 - 1 Burnley",
+            "2015-04-11 - 19-30 Burnley 0 - 1 Arsenal"
+        ],
+        "2015-2016": [
+            "2015-09-26 - 17-00 Manchester United 3 - 0 Sunderland",
+            "2015-12-28 - 20-30 Manchester United 0 - 0 Chelsea",
+            "2016-03-02 - 23-00 Liverpool 3 - 0 Manchester City"
+        ],
+        "2016-2017": [
+            "2016-09-10 - 17-00 Arsenal 2 - 1 Southampton",
+            "2016-10-01 - 14-30 Swansea 1 - 2 Liverpool",
+            "2016-10-17 - 22-00 Liverpool 0 - 0 Manchester United",
+            "2016-10-22 - 17-00 Arsenal 0 - 0 Middlesbrough",
+            "2016-10-22 - 19-30 Liverpool 2 - 1 West Brom",
+            "2016-10-29 - 14-30 Sunderland 1 - 4 Arsenal",
+            "2016-10-29 - 19-30 Crystal Palace 2 - 4 Liverpool"
+        ]
+    },
+    "europe_uefa-champions-league": {
+        "2014-2015": [
+            "2014-12-09 - 22-45 Liverpool 1 - 1 Basel"
+        ],
+        "2015-2016": [
+            "2015-09-15 - 21-45 Paris SG 2 - 0 Malmo FF",
+            "2015-09-16 - 21-45 Chelsea 4 - 0 Maccabi Tel Aviv",
+            "2015-09-16 - 21-45 Dyn. Kiev 2 - 2 FC Porto",
+            "2015-10-20 - 21-45 Arsenal 2 - 0 Bayern Munich"
+        ],
+        "2016-2017": [
+            "2017-04-12 - 21-45 Bayern Munich 1 - 2 Real Madrid"
+        ]
+    },
+    "france_ligue-1": {
+        "2015-2016": [
+            "2015-09-19 - 18-30 Reims 1 - 1 Paris SG"
+        ]
+    },
+    "germany_bundesliga": {
+        "2014-2015": [
+            "2015-04-11 - 16-30 Bayern Munich 3 - 0 Eintracht Frankfurt"
+        ]
+    },
+    "italy_serie-a": {
+        "2014-2015": [
+            "2015-04-19 - 21-45 Inter 0 - 0 AC Milan"
+        ],
+        "2016-2017": [
+            "2016-08-21 - 21-45 Pescara 2 - 2 Napoli",
+            "2016-11-06 - 17-00 Palermo 1 - 2 AC Milan",
+            "2017-01-15 - 17-00 Udinese 0 - 1 AS Roma",
+            "2017-01-29 - 17-00 Sampdoria 3 - 2 AS Roma",
+            "2017-02-19 - 20-00 AS Roma 4 - 1 Torino",
+            "2017-02-26 - 22-45 Inter 1 - 3 AS Roma",
+            "2017-04-09 - 16-00 Bologna 0 - 3 AS Roma",
+            "2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta",
+            "2017-05-20 - 19-00 Chievo 3 - 5 AS Roma"
+        ]
+    },
+    "spain_laliga": {
+        "2014-2015": [
+            "2015-02-21 - 18-00 Barcelona 0 - 1 Malaga"
+        ],
+        "2015-2016": [
+            "2015-08-29 - 23-30 Real Madrid 5 - 0 Betis",
+            "2015-09-12 - 21-30 Atl. Madrid 1 - 2 Barcelona",
+            "2015-09-23 - 22-00 Ath Bilbao 1 - 2 Real Madrid",
+            "2015-09-26 - 19-15 Real Madrid 0 - 0 Malaga",
+            "2015-10-04 - 21-30 Atl. Madrid 1 - 1 Real Madrid",
+            "2016-05-08 - 18-00 Real Madrid 3 - 2 Valencia",
+            "2016-05-14 - 18-00 Dep. La Coruna 0 - 2 Real Madrid"
+        ],
+        "2016-2017": [
+            "2017-01-07 - 15-00 Real Madrid 5 - 0 Granada CF",
+            "2017-01-15 - 22-45 Sevilla 2 - 1 Real Madrid"
+        ]
+    }
+}

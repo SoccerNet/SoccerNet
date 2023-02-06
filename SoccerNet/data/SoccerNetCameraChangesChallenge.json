@@ -1,0 +1,76 @@
+{
+    "england_epl": {
+        "2016-2017": [
+            "2017-05-13 - 18-00 Stoke City 1 - 4 Arsenal",
+            "2017-04-30 - 18-00 Tottenham 2 - 0 Arsenal",
+            "2017-04-10 - 18-00 Crystal Palace 3 - 0 Arsenal",
+            "2017-04-02 - 18-00 Arsenal 2 - 2 Manchester City",
+            "2017-03-18 - 18-00 West Brom 3 - 1 Arsenal",
+            "2017-02-04 - 18-00 Chelsea 3 - 1 Arsenal",
+            "2017-01-22 - 18-00 Arsenal 2 - 1 Burnley",
+            "2017-01-03 - 18-00 Bournemouth 3 - 3 Arsenal",
+            "2016-11-19 - 18-00 Manchester United 1 - 1 Arsenal"
+        ]
+    },
+    "europe_uefa-champions-league": {
+        "2016-2017": [
+            "2017-05-09 - 18-00 Juventus 2 - 1 Monaco",
+            "2017-04-11 - 18-00 Juventus 3 - 0 Barcelona",
+            "2017-03-07 - 18-00 Arsenal 1 - 5 Bayern",
+            "2017-02-15 - 18-00 Bayern 5 - 1 Arsenal",
+            "2016-12-06 - 18-00 Basel 1 - 4 Arsenal",
+            "2016-11-06 - 18-00 Ludogorets Razgrad 2 - 3 Arsenal",
+            "2016-09-26 - 18-00 Arsenal 2 - 0 Basel"
+        ]
+    },
+    "france_ligue-1": {
+        "2016-2017": [
+            "2017-02-24 - 18-00 Nice 2 - 1 Montpellier",
+            "2016-09-11 - 18-00 Nice 3 - 2 Marseille",
+            "2017-04-02 - 18-00 Nice 2 - 1 Bordeaux",
+            "2017-05-07 - 18-00 Marseille 2 - 1 Nice",
+            "2017-02-18 - 18-00 Lorient 0 - 1 Nice",
+            "2017-02-08 - 18-00 Nice 1 - 0 Saint Etienne",
+            "2016-12-11 - 18-00 Paris SG 2 - 2 Nice",
+            "2016-12-04 - 18-00 Nice 3 - 0 Toulouse",
+            "2016-11-20 - 18-00 Saint Etienne 0 - 1 Nice"
+        ]
+    },
+    "germany_bundesliga": {
+        "2016-2017": [
+            "2016-09-30 - 18-00 Leipzig 2 - 1 Augsburg",
+            "2016-09-21 - 18-00 Leipzig 1 - 1 Borussia",
+            "2017-05-13 - 18-00 Leipzig 4 - 5 Bayern",
+            "2017-02-11 - 18-00 Leipzig 0 - 3 Hamburger",
+            "2017-01-28 - 18-00 Leipzig 2 - 1 Hoffenheim",
+            "2017-01-21 - 18-00 Leipzig 3 - 0 Frankfurt",
+            "2016-12-20 - 18-00 Bayern 3 - 0 Leipzig",
+            "2016-12-17 - 18-00 Leipzig 2 - 0 Hertha"
+             ]
+    },
+    "italy_serie-a": {
+        "2016-2017": [
+            "2016-09-24 - 18-00 Palermo 0 - 1 Juventus",
+            "2016-09-18 - 18-00 Empoli 0 - 2 Internazionale",
+            "2016-09-18 - 18-00 Juventus 1 - 0 Internazionale",
+            "2016-08-27 - 18-00 Lazio 0 - 1 Juventus",
+            "2017-03-18 - 18-00 Torino 2 - 2 Internazionale",
+            "2017-03-05 - 18-00 Cagliari 1 - 5 Internazionale",
+            "2016-08-20 - 18-00 Juventus 2 - 1 Fiorentina",
+            "2016-12-01 - 18-00 Napoli 3 - 0 Internazionale",
+            "2016-11-06 - 18-00 Internazionale 3 - 0 Crotone"
+        ]
+    },
+    "spain_laliga": {
+        "2019-2020": [
+            "2020-02-01 - 18-00 Real Madrid 1 - 0 Atletico Madrid",
+            "2019-10-05 - 18-00 Real Madrid 4 - 2 Granada",
+            "2019-09-14 - 18-00 Barcelona 5 - 2 Valencia",
+            "2020-02-16 - 18-00 Real Madrid 2 - 2 Celta Vigo",
+            "2020-02-09 - 18-00 Osasuna 1 - 4 Real Madrid",
+            "2019-12-15 - 18-00 Valencia 1 - 1 Real Madrid",
+            "2019-12-14 - 18-00 Real Sociedad 2 - 2 Barcelona",
+            "2019-08-17 - 18-00 Celta Vigo 1 - 3 Real Madrid"
+        ]
+    }
+}

@@ -1,0 +1,168 @@
+{
+    "england_epl": {
+        "2014-2015": [
+            "2015-02-21 - 18-00 Crystal Palace 1 - 2 Arsenal",
+            "2015-02-21 - 18-00 Swansea 2 - 1 Manchester United",
+            "2015-05-17 - 18-00 Manchester United 1 - 1 Arsenal"
+        ],
+        "2015-2016": [
+            "2015-09-26 - 17-00 Liverpool 3 - 2 Aston Villa",
+            "2015-09-26 - 19-30 Newcastle Utd 2 - 2 Chelsea",
+            "2015-10-03 - 17-00 Manchester City 6 - 1 Newcastle Utd",
+            "2015-12-19 - 18-00 Chelsea 3 - 1 Sunderland",
+            "2015-12-26 - 18-00 Chelsea 2 - 2 Watford",
+            "2015-12-26 - 18-00 Manchester City 4 - 1 Sunderland",
+            "2016-01-13 - 22-45 Chelsea 2 - 2 West Brom",
+            "2016-01-24 - 19-00 Arsenal 0 - 1 Chelsea",
+            "2016-02-03 - 22-45 Watford 0 - 0 Chelsea",
+            "2016-02-14 - 19-15 Manchester City 1 - 2 Tottenham",
+            "2016-02-27 - 18-00 Southampton 1 - 2 Chelsea",
+            "2016-03-01 - 22-45 Norwich 1 - 2 Chelsea",
+            "2016-03-05 - 18-00 Chelsea 1 - 1 Stoke City",
+            "2016-03-05 - 18-00 Manchester City 4 - 0 Aston Villa"
+        ],
+        "2016-2017": [
+            "2016-08-20 - 17-00 Burnley 2 - 0 Liverpool",
+            "2016-08-20 - 19-30 Leicester 0 - 0 Arsenal",
+            "2016-08-27 - 14-30 Tottenham 1 - 1 Liverpool",
+            "2016-09-16 - 22-00 Chelsea 1 - 2 Liverpool",
+            "2016-09-17 - 17-00 Hull City 1 - 4 Arsenal",
+            "2016-09-24 - 14-30 Manchester United 4 - 1 Leicester",
+            "2016-09-24 - 19-30 Arsenal 3 - 0 Chelsea",
+            "2016-10-15 - 14-30 Chelsea 3 - 0 Leicester",
+            "2016-10-29 - 17-00 Tottenham 1 - 1 Leicester",
+            "2016-11-06 - 19-30 Leicester 1 - 2 West Brom",
+            "2016-11-26 - 18-00 Liverpool 2 - 0 Sunderland",
+            "2016-12-04 - 16-30 Bournemouth 4 - 3 Liverpool",
+            "2016-12-11 - 19-30 Liverpool 2 - 2 West Ham"
+        ]
+    },
+    "europe_uefa-champions-league": {
+        "2014-2015": [
+            "2014-11-04 - 20-00 Zenit Petersburg 1 - 2 Bayer Leverkusen"
+        ],
+        "2015-2016": [
+            "2015-09-15 - 21-45 Galatasaray 0 - 2 Atl. Madrid",
+            "2015-09-15 - 21-45 Manchester City 1 - 2 Juventus",
+            "2015-09-15 - 21-45 PSV 2 - 1 Manchester United",
+            "2015-09-15 - 21-45 Real Madrid 4 - 0 Shakhtar Donetsk",
+            "2015-09-16 - 21-45 AS Roma 1 - 1 Barcelona",
+            "2015-09-16 - 21-45 Gent 1 - 1 Lyon",
+            "2015-09-29 - 21-45 Arsenal 2 - 3 Olympiakos Piraeus",
+            "2015-09-29 - 21-45 Barcelona 2 - 1 Bayer Leverkusen",
+            "2015-09-29 - 21-45 FC Porto 2 - 1 Chelsea",
+            "2015-09-29 - 21-45 Lyon 0 - 1 Valencia",
+            "2015-11-03 - 22-45 B. Monchengladbach 1 - 1 Juventus",
+            "2015-11-03 - 22-45 Benfica 2 - 1 Galatasaray"
+        ],
+        "2016-2017": [
+            "2016-09-13 - 21-45 Barcelona 7 - 0 Celtic",
+            "2016-11-01 - 20-45 Besiktas 1 - 1 Napoli",
+            "2016-11-01 - 22-45 Manchester City 3 - 1 Barcelona",
+            "2016-11-23 - 22-45 Napoli 0 - 0 Dyn. Kiev",
+            "2016-12-06 - 22-45 Benfica 1 - 2 Napoli",
+            "2017-02-14 - 22-45 Paris SG 4 - 0 Barcelona",
+            "2017-02-15 - 22-45 Real Madrid 3 - 1 Napoli",
+            "2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich",
+            "2017-05-02 - 21-45 Real Madrid 3 - 0 Atl. Madrid"
+        ]
+    },
+    "france_ligue-1": {
+        "2014-2015": [
+            "2015-04-05 - 22-00 Marseille 2 - 3 Paris SG"
+        ],
+        "2016-2017": [
+            "2016-08-12 - 21-00 Bastia 0 - 1 Paris SG",
+            "2016-08-28 - 21-45 Monaco 3 - 1 Paris SG"
+        ]
+    },
+    "germany_bundesliga": {
+        "2014-2015": [
+            "2015-04-25 - 19-30 Bayern Munich 1 - 0 Hertha Berlin",
+            "2015-05-02 - 16-30 Hoffenheim 1 - 1 Dortmund",
+            "2015-05-09 - 16-30 Bayern Munich 0 - 1 FC Augsburg",
+            "2015-05-09 - 16-30 Dortmund 2 - 0 Hertha Berlin",
+            "2015-05-16 - 16-30 Wolfsburg 2 - 1 Dortmund"
+        ],
+        "2015-2016": [
+            "2015-08-22 - 16-30 Hoffenheim 1 - 2 Bayern Munich",
+            "2015-08-29 - 19-30 Bayern Munich 3 - 0 Bayer Leverkusen",
+            "2015-08-30 - 16-30 Dortmund 3 - 1 Hertha Berlin",
+            "2015-09-12 - 16-30 Bayern Munich 2 - 1 FC Augsburg",
+            "2015-09-19 - 16-30 Darmstadt 0 - 3 Bayern Munich",
+            "2015-09-20 - 18-30 Dortmund 3 - 0 Bayer Leverkusen",
+            "2015-09-22 - 21-00 Bayern Munich 5 - 1 Wolfsburg",
+            "2015-10-04 - 18-30 Bayern Munich 5 - 1 Dortmund",
+            "2015-10-24 - 16-30 Bayern Munich 4 - 0 FC Koln"
+        ],
+        "2016-2017": [
+            "2016-09-10 - 19-30 RB Leipzig 1 - 0 Dortmund",
+            "2016-09-23 - 21-30 Dortmund 3 - 1 SC Freiburg"
+        ]
+    },
+    "italy_serie-a": {
+        "2014-2015": [
+            "2015-02-15 - 14-30 AC Milan 1 - 1 Empoli",
+            "2015-04-11 - 21-45 Verona 0 - 3 Inter",
+            "2015-04-25 - 19-00 Udinese 2 - 1 AC Milan",
+            "2015-04-25 - 21-45 Inter 2 - 1 AS Roma"
+        ],
+        "2015-2016": [
+            "2015-09-20 - 13-30 Chievo 0 - 1 Inter",
+            "2015-09-20 - 16-00 Genoa 0 - 2 Juventus"
+        ],
+        "2016-2017": [
+            "2016-08-20 - 19-00 AS Roma 4 - 0 Udinese",
+            "2016-08-28 - 21-45 Cagliari 2 - 2 AS Roma",
+            "2016-11-06 - 22-45 AS Roma 3 - 0 Bologna",
+            "2016-11-20 - 17-00 Atalanta 2 - 1 AS Roma",
+            "2017-01-08 - 17-00 Genoa 0 - 1 AS Roma",
+            "2017-01-08 - 20-00 AC Milan 1 - 0 Cagliari",
+            "2017-01-15 - 17-00 Napoli 3 - 1 Pescara",
+            "2017-01-21 - 22-45 AC Milan 1 - 2 Napoli",
+            "2017-01-22 - 22-45 AS Roma 1 - 0 Cagliari",
+            "2017-02-04 - 22-45 Bologna 1 - 7 Napoli",
+            "2017-02-10 - 22-45 Napoli 2 - 0 Genoa",
+            "2017-02-19 - 17-00 Chievo 1 - 3 Napoli",
+            "2017-02-25 - 20-00 Napoli 0 - 2 Atalanta",
+            "2017-03-04 - 17-00 AS Roma 1 - 2 Napoli",
+            "2017-03-12 - 17-00 Napoli 3 - 0 Crotone",
+            "2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo",
+            "2017-04-02 - 21-45 Napoli 1 - 1 Juventus",
+            "2017-04-09 - 21-45 Lazio 0 - 3 Napoli",
+            "2017-04-15 - 21-45 Napoli 3 - 0 Udinese",
+            "2017-04-23 - 13-30 Sassuolo 2 - 2 Napoli",
+            "2017-04-24 - 21-45 Pescara 1 - 4 AS Roma",
+            "2017-04-30 - 13-30 AS Roma 1 - 3 Lazio",
+            "2017-04-30 - 21-45 Inter 0 - 1 Napoli",
+            "2017-05-06 - 19-00 Napoli 3 - 1 Cagliari",
+            "2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma",
+            "2017-05-14 - 16-00 Torino 0 - 5 Napoli",
+            "2017-05-14 - 21-45 AS Roma 3 - 1 Juventus",
+            "2017-05-20 - 21-45 Napoli 4 - 1 Fiorentina",
+            "2017-05-28 - 19-00 AS Roma 3 - 2 Genoa"
+        ]
+    },
+    "spain_laliga": {
+        "2014-2015": [
+            "2015-04-11 - 21-00 Sevilla 2 - 2 Barcelona",
+            "2015-05-02 - 17-00 Cordoba 0 - 8 Barcelona",
+            "2015-05-09 - 19-00 Barcelona 2 - 0 Real Sociedad"
+        ],
+        "2015-2016": [
+            "2015-08-29 - 21-30 Barcelona 1 - 0 Malaga",
+            "2015-09-12 - 17-00 Espanyol 0 - 6 Real Madrid",
+            "2015-09-19 - 17-00 Real Madrid 1 - 0 Granada CF",
+            "2015-09-26 - 17-00 Barcelona 2 - 1 Las Palmas",
+            "2016-04-20 - 23-00 Real Madrid 3 - 0 Villarreal",
+            "2016-04-30 - 17-00 Real Sociedad 0 - 1 Real Madrid"
+        ],
+        "2016-2017": [
+            "2017-01-14 - 18-15 Barcelona 5 - 0 Las Palmas",
+            "2017-01-21 - 18-15 Real Madrid 2 - 1 Malaga",
+            "2017-01-29 - 14-00 Betis 1 - 1 Barcelona",
+            "2017-04-23 - 21-45 Real Madrid 2 - 3 Barcelona",
+            "2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid"
+        ]
+    }
+}
