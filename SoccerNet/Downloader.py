@@ -773,7 +773,7 @@ if __name__ == "__main__":
 
     # Load the arguments
     parser = ArgumentParser(description='Test Downloader',
-                            formatter_class=ArgumentDefaultsHelpFormatter)
+                            formatter_class=ArgumentDefaultsHelpFormatter) 
 
     parser.add_argument('--SoccerNet_path',   required=True,
                         type=str, help='Path to the SoccerNet-V2 dataset folder')
