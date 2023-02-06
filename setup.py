@@ -6,58 +6,8 @@ from setuptools import setup, find_packages, Command
 
 from SoccerNet import __version__, __authors__, __author_email__, __github__
 
-with open('PYPI.md') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
-
-
-class UploadCommand(Command):
-    """Support setup.py upload."""
-
-    description = readme + '\n\n',
-
-    user_options = []
-
-    @staticmethod
-    def status(s):
-        """Prints things in bold."""
-        print('\033[1m{0}\033[0m'.format(s))
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        try:
-            self.status('Removing previous builds…')
-            here = os.path.abspath(os.path.dirname(__file__))
-            rmtree(os.path.join(here, 'dist'))
-            rmtree(os.path.join(here, 'build'))
-            rmtree(os.path.join(here, 'SoccerNet.egg-info'))
-        except OSError:
-            self.status('Fail to remove previous builds..')
-            pass
-
-        # os.system("pyuic5 src/gui/mainwindow.ui -o src/gui/ui_mainwindow.py")
-
-        self.status('Building Source and Wheel (universal) distribution…')
-        os.system(
-            '{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
-
-        self.status('Uploading the package to PyPI via Twine…')
-        # os.system('twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
-        os.system('twine upload dist/*')
-
-        self.status('Pushing git tags…')
-        os.system('git commit -am "minor commit for v{0}"'.format(__version__))
-        os.system('git push')
-        os.system('git tag -d v{0}'.format(__version__))
-        os.system('git tag v{0}'.format(__version__))
-        os.system('git push --tags')
-
-        sys.exit()
-
 
 setup(
     name='SoccerNet',         # How you named your package folder (MyLib)
@@ -101,8 +51,5 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
-    ],
-    cmdclass={
-        'upload': UploadCommand,
-    }
+    ]
 )
