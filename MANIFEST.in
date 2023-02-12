@@ -24,5 +24,6 @@ include SoccerNet/data/SoccerNetCaptionTest.json
 include SoccerNet/data/SoccerNetCaptionChallenge.json
 include SoccerNet/data/SNMOT-test.txt
 include SoccerNet/data/SNMOT-challenge.txt
+include SoccerNet/data/SNMOT-challenge-nodet.txt
 recursive-include SoccerNet *.py
 
