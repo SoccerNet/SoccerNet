@@ -1,5 +1,12 @@
 # Evaluation Scripts
 
+## Format
+
+```python
+def evaluate(gt_zip, prediction_zip, split="test"):
+    return {"metricA": 0.0}
+```
+
 ## Action Spotting
 
 See the function `evaluate` in `ActionSpotting.py`.
