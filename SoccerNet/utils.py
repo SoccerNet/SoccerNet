@@ -38,6 +38,17 @@ def getListGames(split="v1", task="spotting", dataset="SoccerNet"):
                 elif spl == "challenge":
                     jsonGamesFile = Path(__file__).parent / "data/SoccerNetGamesChallenge.json"
 
+            elif task == "spotting-ball":
+                if spl == "train":
+                    jsonGamesFile = Path(__file__).parent / "data/BallTrain.json"
+                elif spl == "valid":
+                    jsonGamesFile = Path(__file__).parent / "data/BallValid.json"
+                elif spl == "test":
+                    jsonGamesFile = Path(__file__).parent / "data/BallTest.json"
+                elif spl == "challenge":
+                    jsonGamesFile = Path(__file__).parent / "data/BallChallenge.json"
+
+
             if task == "caption":
                 if spl == "train":
                     jsonGamesFile = Path(__file__).parent / "data/SoccerNetCaptionTrain.json"
