@@ -13,6 +13,8 @@
 ```bash
 conda create -n SoccerNet python pip
 pip install SoccerNet
+# pip install -e https://github.com/SoccerNet/SoccerNet
+# pip install -e .
 ```
 
 ## Structure of the data data for each game
@@ -83,11 +85,6 @@ mySoccerNetDownloader.downloadGames(files=["1_player_boundingbox_maskrcnn.json",
 mySoccerNetDownloader.downloadGames(files=["1_field_calib_ccbv.json", "2_field_calib_ccbv.json"], split=["train","valid","test"]) # download Field Calibration inferred with CCBV
 mySoccerNetDownloader.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy"], split=["train","valid","test"]) # download Frame Embeddings from https://github.com/baidu-research/vidpress-sports
 
-# Download SoccerNet videos (require password from NDA to download videos)
-mySoccerNetDownloader.password = input("Password for videos? (contact the author):\n")
-mySoccerNetDownloader.downloadGames(files=["1_224p.mkv", "2_224p.mkv"], split=["train","valid","test"]) # download 224p Videos
-mySoccerNetDownloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv"], split=["train","valid","test"]) # download 720p Videos 
-
 # Download SoccerNet Challenge set (require password from NDA to download videos)
 mySoccerNetDownloader.downloadGames(files=["1_ResNET_TF2.npy", "2_ResNET_TF2.npy"], split=["challenge"]) # download ResNET Features
 mySoccerNetDownloader.downloadGames(files=["1_ResNET_TF2_PCA512.npy", "2_ResNET_TF2_PCA512.npy"], split=["challenge"]) # download ResNET Features reduced with PCA
@@ -97,6 +94,12 @@ mySoccerNetDownloader.downloadGames(files=["1_player_boundingbox_maskrcnn.json",
 mySoccerNetDownloader.downloadGames(files=["1_field_calib_ccbv.json", "2_field_calib_ccbv.json"], split=["challenge"]) # download Field Calibration inferred with CCBV 
 mySoccerNetDownloader.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy"], split=["challenge"]) # download Frame Embeddings from https://github.com/baidu-research/vidpress-sports
 
+# Download SoccerNet videos (require password from NDA to download videos)
+mySoccerNetDownloader.password = input("Password for videos? (contact the author):\n")
+mySoccerNetDownloader.downloadGames(files=["1_224p.mkv", "2_224p.mkv"], split=["train","valid","test"]) # download 224p Videos
+mySoccerNetDownloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv"], split=["train","valid","test"]) # download 720p Videos 
+mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet") # download 720p Videos 
+mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet-Tracking") # download single camera RAW Videos 
 ```
 
 ## How to read the list Games (Python)

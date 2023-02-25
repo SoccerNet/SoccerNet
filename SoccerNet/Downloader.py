@@ -764,7 +764,17 @@ class SoccerNetDownloader(OwnCloudDownloader):
             for game in gamelist:
                 self.downloadGame(game=game, files=files, spl=spl, verbose=verbose)
 
-
+    def downloadRAWVideo(self, dataset="SoccerNet", verbose=True):
+        if dataset == "SoccerNet":
+            self.downloadGames(files=["1_720p.mkv", "2_720p.mkv"], split=["train", "valid", "test", "challenge"], verbose=verbose)
+        elif dataset == "SoccerNet-Tracking":
+            res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, "single_camera_games_public.zip"),
+                                    path_owncloud=os.path.join(self.OwnCloudServer, "single_camera_games_public.zip").replace(
+                                        ' ', '%20').replace('\\', '/'),
+                                    # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/Jk85T1yV7DKMcCI # user for raw videos
+                                    user="Jk85T1yV7DKMcCI",
+                                    password=self.password,
+                                    verbose=verbose)
 
                     
 if __name__ == "__main__":
