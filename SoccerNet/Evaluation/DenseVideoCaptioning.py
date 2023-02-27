@@ -480,7 +480,7 @@ class DVCEvaluator(object):
 
 
 
-def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_caption.json", label_files="Labels-caption.json", split="test", version=1, include_SODA=True):
+def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_caption.json", label_files="Labels-caption.json", split="test", version=2, window_size=30, include_SODA=True):
     # evaluate the prediction with respect to some ground truth
     # Params:
     #   - SoccerNet_path: path for labels (folder or zipped file)
@@ -492,7 +492,7 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_caption.
     # Return:
     #   - dictionary of metrics
 
-    evaluator = DVCEvaluator(SoccerNet_path, Predictions_path, prediction_file=prediction_file, label_files=label_files, tious=[0], split=split, version=version, window_size=30)
+    evaluator = DVCEvaluator(SoccerNet_path, Predictions_path, prediction_file=prediction_file, label_files=label_files, tious=[0], split=split, version=version, window_size=window_size)
     result = evaluator.evaluate_activitynet()
     if include_SODA:
         evaluator.preprocess()
