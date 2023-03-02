@@ -18,7 +18,7 @@ import glob
 
 
 
-def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting.json", split="test", version=2, framerate=2, metric="loose", label_files="Labels-v2.json", num_classes=17, dataset="SoccerNet"):
+def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting.json", split="test", version=2, framerate=2, metric="loose", label_files="Labels-v2.json", num_classes=17, dataset="SoccerNet", task="spotting"):
     # evaluate the prediction with respect to some ground truth
     # Params:
     #   - SoccerNet_path: path for labels (folder or zipped file)
@@ -29,13 +29,13 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting
     # Return:
     #   - details mAP
 
-    list_games = getListGames(split=split, dataset=dataset)
+    list_games = getListGames(split=split, dataset=dataset, task=task)
     targets_numpy = list()
     detections_numpy = list()
     closests_numpy = list()
-    if dataset == "SoccerNet" and version == 1:
+    if dataset == "SoccerNet" and version == 1 and task == "spotting":
         EVENT_DICTIONARY = EVENT_DICTIONARY_V1
-    elif dataset == "SoccerNet" and version == 2:
+    elif dataset == "SoccerNet" and version == 2 and task == "spotting":
         EVENT_DICTIONARY = EVENT_DICTIONARY_V2
     elif dataset == "Headers":
         EVENT_DICTIONARY = {"Header": 0}
@@ -44,6 +44,8 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting
                             "3. Attempted header": 2, "4. Unintentional header": 3, "5. Other head impacts": 4}
     elif dataset == "Ball":
         EVENT_DICTIONARY = EVENT_DICTIONARY_BALL
+    elif dataset == "SoccerNet" and task == "caption":
+        EVENT_DICTIONARY = {"comments": 0}
 
     for game in tqdm(list_games):
 
