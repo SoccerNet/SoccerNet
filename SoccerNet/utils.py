@@ -22,11 +22,14 @@ def getListGames(split="v1", task="spotting", dataset="SoccerNet"):
         split.append("test")
 
     # if task == "spotting":
-        
+    
     listgames = []
     # print(split)
     # loop over splits
     for spl in split: 
+        if spl not in ["train", "valid", "test", "challenge"]:
+            print(f"[ERROR] unknown split '{spl}'. Please use 'train', 'valid', 'test' or 'challenge' instead.")
+            continue
         if dataset == "SoccerNet":
             if task == "spotting":
                 if spl == "train":
