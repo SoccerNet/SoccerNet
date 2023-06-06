@@ -90,8 +90,54 @@ class SoccerNetDownloader(OwnCloudDownloader):
         self.password = None
 
     def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet"): # Generic password for public data
+        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/NpdmRKxOGnaQKEv private
+        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/j2Nm0gQpPmmbrMg public
+        if task == "mvfouls":
+            if "train" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="j2Nm0gQpPmmbrMg",
+                                        password=password,
+                                        verbose=verbose)
+            if "valid" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="j2Nm0gQpPmmbrMg",
+                                        password=password,
+                                        verbose=verbose)
+            if "test" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="j2Nm0gQpPmmbrMg",
+                                        password=password,
+                                        verbose=verbose)
+            if "challenge" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="j2Nm0gQpPmmbrMg",
+                                        password=password,
+                                        verbose=verbose)
+            if "test_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test_labels.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test_labels.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="NpdmRKxOGnaQKEv",
+                                        password=password,
+                                        verbose=verbose)
+            if "challenge_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge_labels.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge_labels.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="NpdmRKxOGnaQKEv",
+                                        password=password,
+                                        verbose=verbose)
+        
         # 2023
-        if task == "calibration-2023":
+        elif task == "calibration-2023":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(

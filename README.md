@@ -12,6 +12,7 @@
 
 ```bash
 conda create -n SoccerNet python pip
+conda activate SoccerNet
 pip install SoccerNet
 # pip install -e https://github.com/SoccerNet/SoccerNet
 # pip install -e .
