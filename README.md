@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/soccernet/soccernet/main/doc/images/soccernet.png">
+</div>
+
 [![Python](https://img.shields.io/pypi/pyversions/SoccerNet)](https://img.shields.io/pypi/pyversions/SoccerNet)
 [![Pypi](https://img.shields.io/pypi/v/SoccerNet)](https://pypi.org/project/SoccerNet/)
 [![Downloads](https://static.pepy.tech/personalized-badge/SoccerNet?period=month&units=international_system&left_color=grey&right_color=brightgreen&left_text=PyPI%20downloads/month)](https://pepy.tech/project/SoccerNet)
