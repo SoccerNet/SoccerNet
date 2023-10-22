@@ -84,7 +84,7 @@ class OwnCloudDownloader():
 
 class SoccerNetDownloader(OwnCloudDownloader):
     def __init__(self, LocalDirectory,
-                 OwnCloudServer="https://exrcsdrive.kaust.edu.sa/exrcsdrive/public.php/webdav/"):
+                 OwnCloudServer="https://exrcsdrive.kaust.edu.sa/public.php/webdav/"):
         super(SoccerNetDownloader, self).__init__(
             LocalDirectory, OwnCloudServer)
         self.password = None
