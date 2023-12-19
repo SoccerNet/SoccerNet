@@ -71,7 +71,8 @@ class OwnCloudDownloader():
                 print(identifier)
                 return 1
         except:
-            os.remove(path_local)
+            if os.path.exists(path_local):
+                os.remove(path_local)
             raise
             return 2
 
@@ -90,9 +91,9 @@ class SoccerNetDownloader(OwnCloudDownloader):
         self.password = None
 
     def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet", version=None): # Generic password for public data
-        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/NpdmRKxOGnaQKEv private
-        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/j2Nm0gQpPmmbrMg public
-        if task == "mvfouls":
+
+        # 2024
+        if task == "mvfouls-2024" or task == "mvfouls":
             if version == "224p" or version is None:
                 if "train" in split:
                     res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
@@ -165,8 +166,6 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         user="NpdmRKxOGnaQKEv",
                                         password=password,
                                         verbose=verbose)
-        
-        # 2024
         elif task == "gamestate-2024":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
@@ -216,7 +215,101 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         user="94cEKBCjtwplXc1",
                                         password=password,
                                         verbose=verbose)
-                
+        elif task == "caption-2024":
+            if "train" in split:
+                self.LocalDirectory = os.path.join(self.LocalDirectory, task)
+                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                                          "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="train", task="caption")
+                self.LocalDirectory = os.path.dirname(self.LocalDirectory)
+
+            if "valid" in split:
+                self.LocalDirectory = os.path.join(self.LocalDirectory, task)
+                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                                          "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="valid", task="caption")
+                self.LocalDirectory = os.path.dirname(self.LocalDirectory)
+
+            if "test" in split:
+                self.LocalDirectory = os.path.join(self.LocalDirectory, task)
+                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                                          "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="test", task="caption")
+                self.LocalDirectory = os.path.dirname(self.LocalDirectory)
+
+            if "challenge" in split:
+                self.LocalDirectory = os.path.join(self.LocalDirectory, task)
+                self.downloadGames(files=[
+                                   "1_baidu_soccer_embeddings.npy", "2_baidu_soccer_embeddings.npy"], split="challenge", task="caption")
+                self.LocalDirectory = os.path.dirname(self.LocalDirectory)
+
+            if "test_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test_labels.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test_labels.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/ThC443j7rM57UPp # user for caption splits GT
+                                        user="ThC443j7rM57UPp",
+                                        password=password,
+                                        verbose=verbose)
+
+            if "challenge_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge_labels.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge_labels.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/ThC443j7rM57UPp # user for caption splits GT
+                                        user="ThC443j7rM57UPp",
+                                        password=password,
+                                        verbose=verbose)        
+        elif task == "spotting-ball-2024":
+            if "train" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/5yhG5AtySHFNU4T # user for fine grained spotting splits
+                                        user="5yhG5AtySHFNU4T",
+                                        password=password,
+                                        verbose=verbose)
+            if "valid" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/5yhG5AtySHFNU4T # user for fine grained spotting splits
+                                        user="5yhG5AtySHFNU4T",
+                                        password=password,
+                                        verbose=verbose)
+            if "test" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/5yhG5AtySHFNU4T # user for fine grained spotting splits
+                                        user="5yhG5AtySHFNU4T",
+                                        password=password,
+                                        verbose=verbose)
+            if "challenge" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/5yhG5AtySHFNU4T # user for fine grained spotting splits
+                                        user="5yhG5AtySHFNU4T",
+                                        password=password,
+                                        verbose=verbose)
+            if "test_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test-private.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test-private.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/QfgR2L12SQB0WFz # user for fine grained spotting splits GT
+                                        user="QfgR2L12SQB0WFz",
+                                        password=password,
+                                        verbose=verbose)
+                if res == 1:  # HTTPError
+                    print("This function should download test_labels.zip for fine grained spotting - but test_labels.zip was not uploaded on the server yet! - or check the password")
+
+            if "challenge_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge-private.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge-private.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/QfgR2L12SQB0WFz # user for fine grained spotting splits GT
+                                        user="QfgR2L12SQB0WFz",
+                                        password=password,
+                                        verbose=verbose)
+        
         # 2023
         elif task == "calibration-2023":
             if "train" in split:
