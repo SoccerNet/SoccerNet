@@ -100,7 +100,7 @@ mySoccerNetDownloader.downloadGames(files=["1_field_calib_ccbv.json", "2_field_c
 mySoccerNetDownloader.downloadGames(files=["1_baidu_soccer_embeddings.npy", "2_baidu_soccer_embeddings.npy"], split=["challenge"]) # download Frame Embeddings from https://github.com/baidu-research/vidpress-sports
 
 # Download development kit per task
-mySoccerNetDownloader.downloadDataTask(task="calib-2023", split=["train", "valid", "test", "challenge"])
+mySoccerNetDownloader.downloadDataTask(task="calibration-2023", split=["train", "valid", "test", "challenge"])
 mySoccerNetDownloader.downloadDataTask(task="caption-2023", split=["train", "valid", "test", "challenge"])
 mySoccerNetDownloader.downloadDataTask(task="jersey-2023", split=["train", "test", "challenge"])
 mySoccerNetDownloader.downloadDataTask(task="reid-2023", split=["train", "valid", "test", "challenge"])
