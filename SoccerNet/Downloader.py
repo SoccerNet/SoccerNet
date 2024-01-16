@@ -153,15 +153,15 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                             password=password,
                                             verbose=verbose)
             if "test_labels" in split:
-                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test_labels.zip"),
-                                        path_owncloud=os.path.join(self.OwnCloudServer, "test_labels.zip").replace(
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test_labels.json"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test_labels.json").replace(
                                             ' ', '%20').replace('\\', '/'),
                                         user="NpdmRKxOGnaQKEv",
                                         password=password,
                                         verbose=verbose)
             if "challenge_labels" in split:
-                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge_labels.zip"),
-                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge_labels.zip").replace(
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge_labels.json"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge_labels.json").replace(
                                             ' ', '%20').replace('\\', '/'),
                                         user="NpdmRKxOGnaQKEv",
                                         password=password,
