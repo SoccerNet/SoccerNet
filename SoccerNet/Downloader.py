@@ -93,7 +93,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
     def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet", version=None): # Generic password for public data
 
         # 2024
-        if task == "mvfouls-2024" or task == "mvfouls":
+        if task == "mvfoul-2024" or task == "mvfoul" or task == "mvfouls-2024" or task == "mvfouls":
             if version == "224p" or version is None:
                 if "train" in split:
                     res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
