@@ -15,10 +15,43 @@ from tqdm import tqdm
 
 
 import glob
+import zipfile
+
+def inferListGame(SoccerNet_path):
+    if zipfile.is_zipfile(SoccerNet_path):
+
+        zip_folder_path = SoccerNet_path
+
+        with zipfile.ZipFile(zip_folder_path, 'r') as zip_ref:
+            list_json = [f for f in zip_ref.namelist() if f.endswith('.json')]
+            list_games = [os.path.dirname(f) for f in list_json]
+
+    else:
+        list_games = []
+        for root, dirs, files in os.walk(SoccerNet_path):
+            for file in files:
+                if file.endswith(".json"):
+                    list_games.append(os.path.relpath(root, SoccerNet_path))
+
+    # for game in list_games:
+    #     print(" --- ", game)
+    
+    return list_games
 
 
-
-def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting.json", split="test", version=2, framerate=2, metric="loose", label_files="Labels-v2.json", num_classes=17, dataset="SoccerNet", task="spotting"):
+def evaluate(
+        SoccerNet_path, Predictions_path, 
+        prediction_file="results_spotting.json", # DEPRECATED, set to None and infer name instead. Kept for backward compatibility
+        split="test", 
+        version=2, 
+        framerate=2, 
+        metric="loose", 
+        label_files="Labels-v2.json", # DEPRECATED, set to None and infer name instead. Kept for backward compatibility
+        num_classes=17, # DEPRECATED, use EVENT_DICTIONARY instead. Kept for backward compatibility
+        dataset="SoccerNet", # DEPRECATED, set to None and use inferGameList instead. Kept for backward compatibility
+        task="spotting",
+        EVENT_DICTIONARY=None, # Set to None to use the default EVENT_DICTIONARY from previous datasets
+        ):
     # evaluate the prediction with respect to some ground truth
     # Params:
     #   - SoccerNet_path: path for labels (folder or zipped file)
@@ -29,23 +62,32 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting
     # Return:
     #   - details mAP
 
-    list_games = getListGames(split=split, dataset=dataset, task=task)
+    if dataset is None:
+        list_games = inferListGame(SoccerNet_path=SoccerNet_path)
+    else:
+        list_games = getListGames(split=split, dataset=dataset, task=task)
     targets_numpy = list()
     detections_numpy = list()
     closests_numpy = list()
-    if dataset == "SoccerNet" and version == 1 and task == "spotting":
-        EVENT_DICTIONARY = EVENT_DICTIONARY_V1
-    elif dataset == "SoccerNet" and version == 2 and task == "spotting":
-        EVENT_DICTIONARY = EVENT_DICTIONARY_V2
-    elif dataset == "Headers":
-        EVENT_DICTIONARY = {"Header": 0}
-    elif dataset == "Headers-headimpacttype":
-        EVENT_DICTIONARY = {"1. Purposeful header": 0, "2. Header Duel": 1,
-                            "3. Attempted header": 2, "4. Unintentional header": 3, "5. Other head impacts": 4}
-    elif dataset == "Ball":
-        EVENT_DICTIONARY = EVENT_DICTIONARY_BALL
-    elif dataset == "SoccerNet" and task == "caption":
-        EVENT_DICTIONARY = {"comments": 0}
+
+    # Set EVENT_DICTIONARY if None, else use the one provided
+    if EVENT_DICTIONARY is None:
+        if dataset == "SoccerNet" and version == 1 and task == "spotting":
+            EVENT_DICTIONARY = EVENT_DICTIONARY_V1
+        elif dataset == "SoccerNet" and version == 2 and task == "spotting":
+            EVENT_DICTIONARY = EVENT_DICTIONARY_V2
+        elif dataset == "Headers":
+            EVENT_DICTIONARY = {"Header": 0}
+        elif dataset == "Headers-headimpacttype":
+            EVENT_DICTIONARY = {"1. Purposeful header": 0, "2. Header Duel": 1,
+                                "3. Attempted header": 2, "4. Unintentional header": 3, "5. Other head impacts": 4}
+        elif dataset == "Ball":
+            EVENT_DICTIONARY = EVENT_DICTIONARY_BALL
+        elif dataset == "SoccerNet" and task == "caption":
+            EVENT_DICTIONARY = {"comments": 0}
+    
+
+    num_classes = len(EVENT_DICTIONARY)
 
     for game in tqdm(list_games):
 
@@ -60,6 +102,22 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting
         #     label_files = "Labels-Header.json"
         #     num_classes = 3
 
+
+        # infer name of the label_files
+        if label_files == None:
+            if zipfile.is_zipfile(SoccerNet_path):
+                with zipfile.ZipFile(SoccerNet_path, "r") as z:
+                    for filename in z.namelist():
+                        if filename.endswith(".json"):
+                            label_files = os.path.basename(filename)
+                            break
+            else:
+                for root, dirs, files in os.walk(SoccerNet_path):
+                    for file in files:
+                        if file.endswith(".json"):
+                            label_files = file
+                            break
+        
         if zipfile.is_zipfile(SoccerNet_path):
             labels = LoadJsonFromZip(SoccerNet_path, os.path.join(game, label_files))
         else:
@@ -67,9 +125,7 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting
         # convert labels to vector
         label_half_1, label_half_2 = label2vector(
             labels, num_classes=num_classes, version=version, EVENT_DICTIONARY=EVENT_DICTIONARY, framerate=framerate)
-        # print(version)
-        # print(label_half_1)
-        # print(label_half_2)
+
 
 
 
@@ -161,7 +217,7 @@ def evaluate(SoccerNet_path, Predictions_path, prediction_file="results_spotting
 def label2vector(labels, num_classes=17, framerate=2, version=2, EVENT_DICTIONARY={}):
 
 
-    vector_size = 90*60*framerate
+    vector_size = 120*60*framerate
 
     label_half1 = np.zeros((vector_size, num_classes))
     label_half2 = np.zeros((vector_size, num_classes))
@@ -188,7 +244,7 @@ def label2vector(labels, num_classes=17, framerate=2, version=2, EVENT_DICTIONAR
             label = EVENT_DICTIONARY[event]
         elif version == 1:
             # print(event)
-            # label = EVENT_DICTIONARY_V1[event]
+            # label = EVENT_DICTIONARY[event]
             if "card" in event: label = 0
             elif "subs" in event: label = 1
             elif "soccer" in event: label = 2
@@ -215,7 +271,7 @@ def label2vector(labels, num_classes=17, framerate=2, version=2, EVENT_DICTIONAR
 def predictions2vector(predictions, num_classes=17, version=2, framerate=2, EVENT_DICTIONARY={}):
 
 
-    vector_size = 90*60*framerate
+    vector_size = 120*60*framerate
 
     prediction_half1 = np.zeros((vector_size, num_classes))-1
     prediction_half2 = np.zeros((vector_size, num_classes))-1
