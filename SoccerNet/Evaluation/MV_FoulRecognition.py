@@ -1,9 +1,5 @@
 import json
-import zipfile
-from tqdm import tqdm
-import os
-import torch
-
+import numpy as np
 
 def evaluate(ground_truth_file, predictions_file):
 
@@ -15,10 +11,10 @@ def evaluate(ground_truth_file, predictions_file):
     predictions = json.load(open(predictions_file))
         
     
-    distribution_action_groundtruth = torch.zeros(1, 8)
-    distribution_action_prediction = torch.zeros(1, 8)
-    distribution_offence_severity_groundtruth = torch.zeros(1, 4)
-    distribution_offence_severity_prediction = torch.zeros(1, 4)
+    distribution_action_groundtruth = np.zeros((1, 8))
+    distribution_action_prediction = np.zeros((1, 8))
+    distribution_offence_severity_groundtruth = np.zeros((1, 4))
+    distribution_offence_severity_prediction = np.zeros((1, 4))
 
 
     counter = 0
@@ -85,8 +81,10 @@ def evaluate(ground_truth_file, predictions_file):
     accuracy_offence_severity = sum(distribution_offence_severity_prediction[0]) / sum(distribution_offence_severity_groundtruth[0])
     accuracy_action = sum(distribution_action_prediction[0]) / sum(distribution_action_groundtruth[0])
     
-    balanced_accuracy_offence_severity = torch.mean(distribution_offence_severity_prediction / distribution_offence_severity_groundtruth)
-    balanced_accuracy_action = torch.mean(distribution_action_prediction / distribution_action_groundtruth)
+    print(type(distribution_offence_severity_prediction))
+
+    balanced_accuracy_offence_severity = np.mean(distribution_offence_severity_prediction / distribution_offence_severity_groundtruth)
+    balanced_accuracy_action = np.mean(distribution_action_prediction / distribution_action_groundtruth)
 
     leaderboard_value = balanced_accuracy_offence_severity * 0.5 + balanced_accuracy_action * 0.5
 
