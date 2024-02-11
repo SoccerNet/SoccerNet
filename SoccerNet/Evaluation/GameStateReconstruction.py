@@ -39,6 +39,35 @@ def evaluate(groundtruth_directory, prediction_filename, split="test"):
                         target_file.write(source_file.read())
 
 
+    # Extract GT zipped folder?
+
+    # zip_path = groundtruth_directory
+    # target_dir = f'./temp/SoccerNetGS-{split}/groundtruth'
+
+    # # Make sure the target directory exists
+    # os.makedirs(target_dir, exist_ok=True)
+
+    # with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    #     # Get a list of all files in the ZIP archive
+    #     for file_name in zip_ref.namelist():
+    #         # Check if the file is a .json file
+    #         if file_name.endswith('.json'):
+    #             # Define the target path for the .json file
+    #             # os.path.basename(file_name) gets the file name itself, ignoring directories
+    #             print(file_name)
+    #             target_path = os.path.join(target_dir, file_name)
+    #             print(os.path.dirname(target_path))
+    #             os.makedirs(os.path.dirname(target_path), exist_ok=True)
+
+    #             # Extract the file to the specific path
+    #             # However, since zipfile.extract() extracts with the full path, we'll read and then write
+    #             # the file to achieve the desired structure
+    #             with zip_ref.open(file_name) as source_file:
+    #                 with open(target_path, 'wb') as target_file:
+    #                     # Copy the file content to the target directory
+    #                     target_file.write(source_file.read())
+
+
     # Forked from run_soccernet_gs.py :
     # Command line interface
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
@@ -46,7 +75,7 @@ def evaluate(groundtruth_directory, prediction_filename, split="test"):
     default_dataset_config = trackeval.datasets.SoccerNetGS.get_default_dataset_config()
     default_metrics_config = {'METRICS': ['HOTA', 'Identity'], 'THRESHOLD': 0.5}
     config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
-    # parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     for setting in config.keys():
         if type(config[setting]) == list or type(config[setting]) == type(None):
             parser.add_argument("--" + setting, nargs='+')
@@ -55,9 +84,9 @@ def evaluate(groundtruth_directory, prediction_filename, split="test"):
     args = parser.parse_args().__dict__
 
 
-    args.pop('prediction')
-    args.pop('groundtruth')
-    args.pop('split')
+    # args.pop('prediction')
+    # args.pop('groundtruth')
+    # args.pop('split')
 
     for setting in args.keys():
         if args[setting] is not None:
@@ -133,19 +162,22 @@ def evaluate(groundtruth_directory, prediction_filename, split="test"):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-pr", "--prediction",
-                        help="prediction zip",
-                        type=str,
-                        default="")
-    parser.add_argument("-gt", "--groundtruth",
-                        help="groundtruth folder",
-                        type=str,
-                        default="")
-    parser.add_argument("-sp", "--split",
-                        help="set split",
-                        type=str,
-                        default="")
-    parsed_args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("-pr", "--prediction",
+    #                     help="prediction zip",
+    #                     type=str,
+    #                     default="")
+    # parser.add_argument("-gt", "--groundtruth",
+    #                     help="groundtruth folder",
+    #                     type=str,
+    #                     default="")
+    # parser.add_argument("-sp", "--split",
+    #                     help="set split",
+    #                     type=str,
+    #                     default="")
+    # parsed_args = parser.parse_args()
 
-    evaluate(parsed_args.groundtruth, parsed_args.prediction, parsed_args.split)
+    # evaluate(parsed_args.groundtruth, parsed_args.prediction, parsed_args.split)
+    evaluate("/home/giancos/git/SoccerNet-Challenges-2024/sn-evalai-gamestate-24/annotations/gamestate-2024/challenge_labels.zip",
+             "/home/giancos/git/SoccerNet-Challenges-2024/sn-evalai-gamestate-24/submissions/challenge_baseline.zip",
+             "challenge")
