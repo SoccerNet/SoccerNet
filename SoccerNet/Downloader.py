@@ -218,26 +218,38 @@ class SoccerNetDownloader(OwnCloudDownloader):
         elif task == "caption-2024":
             if "train" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                           "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="train", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "valid" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                           "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="valid", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "test" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                           "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="test", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "challenge" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=[
+                try:
+                    self.downloadGames(files=[
                                    "1_baidu_soccer_embeddings.npy", "2_baidu_soccer_embeddings.npy"], split="challenge", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "test_labels" in split:
@@ -583,22 +595,34 @@ class SoccerNetDownloader(OwnCloudDownloader):
         elif task == "spotting-2023":
             if "train" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy", "Labels-v2.json"], split="train")
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy", "Labels-v2.json"], split="train")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
             
             if "valid" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy", "Labels-v2.json"], split="valid")
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy", "Labels-v2.json"], split="valid")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "test" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy", "Labels-v2.json"], split="test")
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy", "Labels-v2.json"], split="test")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "challenge" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy"], split="challenge")
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy","2_baidu_soccer_embeddings.npy"], split="challenge")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "test_labels" in split:
@@ -621,26 +645,38 @@ class SoccerNetDownloader(OwnCloudDownloader):
         elif task == "caption-2023":
             if "train" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                           "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="train", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "valid" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                           "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="valid", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "test" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                           "2_baidu_soccer_embeddings.npy", "Labels-caption.json"], split="test", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "challenge" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
-                self.downloadGames(files=[
-                                   "1_baidu_soccer_embeddings.npy", "2_baidu_soccer_embeddings.npy"], split="challenge", task="caption")
+                try:
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy", 
+                                              "2_baidu_soccer_embeddings.npy"], split="challenge", task="caption")
+                except:
+                    print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
 
             if "test_labels" in split:

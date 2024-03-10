@@ -68,12 +68,42 @@ def evaluate(groundtruth_directory, prediction_filename, split="test"):
 
     groundtruth_directory = target_dir
 
+    # Extract GT zipped folder?
+
+    # zip_path = groundtruth_directory
+    # target_dir = f'./temp/SoccerNetGS-{split}/groundtruth'
+
+    # # Make sure the target directory exists
+    # os.makedirs(target_dir, exist_ok=True)
+
+    # with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    #     # Get a list of all files in the ZIP archive
+    #     for file_name in zip_ref.namelist():
+    #         # Check if the file is a .json file
+    #         if file_name.endswith('.json'):
+    #             # Define the target path for the .json file
+    #             # os.path.basename(file_name) gets the file name itself, ignoring directories
+    #             print(file_name)
+    #             target_path = os.path.join(target_dir, file_name)
+    #             print(os.path.dirname(target_path))
+    #             os.makedirs(os.path.dirname(target_path), exist_ok=True)
+
+    #             # Extract the file to the specific path
+    #             # However, since zipfile.extract() extracts with the full path, we'll read and then write
+    #             # the file to achieve the desired structure
+    #             with zip_ref.open(file_name) as source_file:
+    #                 with open(target_path, 'wb') as target_file:
+    #                     # Copy the file content to the target directory
+    #                     target_file.write(source_file.read())
+
+
     # Forked from run_soccernet_gs.py :
     # Command line interface
     eval_config = trackeval.Evaluator.get_default_eval_config()
     eval_config['DISPLAY_LESS_PROGRESS'] = False
     dataset_config = trackeval.datasets.SoccerNetGS.get_default_dataset_config()
     metrics_config = {'METRICS': ['HOTA', 'Identity'], 'THRESHOLD': 0.5}
+
 
     # updating SoccerNet config
     dataset_config['GT_FOLDER'] = groundtruth_directory
