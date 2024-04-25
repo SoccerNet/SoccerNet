@@ -91,9 +91,59 @@ class SoccerNetDownloader(OwnCloudDownloader):
         self.password = None
 
     def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet", version=None): # Generic password for public data
-
+        
+        if task == "depth-football":
+            if "train" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="3u0ennq4n4dMDyQ",
+                                        password=password,
+                                        verbose=verbose)
+            if "valid" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="3u0ennq4n4dMDyQ",
+                                        password=password,
+                                        verbose=verbose)
+            if "test" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="3u0ennq4n4dMDyQ",
+                                        password=password,
+                                        verbose=verbose)
+            if "challenge" in split:
+                print("no challenge split for SN-Depth")
+                
+        elif task == "depth-basketball":
+            if "train" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="nTQOU54hOiZDfGI",
+                                        password=password,
+                                        verbose=verbose)
+            if "valid" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="nTQOU54hOiZDfGI",
+                                        password=password,
+                                        verbose=verbose)
+            if "test" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        user="nTQOU54hOiZDfGI",
+                                        password=password,
+                                        verbose=verbose)
+            if "challenge" in split:
+                print("no challenge split for SN-Depth")
+                    
         # 2024
-        if task == "mvfoul-2024" or task == "mvfoul" or task == "mvfouls-2024" or task == "mvfouls":
+        elif task == "mvfoul-2024" or task == "mvfoul" or task == "mvfouls-2024" or task == "mvfouls":
             if version == "224p" or version is None:
                 if "train" in split:
                     res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
