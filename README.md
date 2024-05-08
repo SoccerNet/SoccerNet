@@ -109,11 +109,16 @@ mySoccerNetDownloader.downloadDataTask(task="spotting-ball-2023", split=["train"
 mySoccerNetDownloader.downloadDataTask(task="tracking-2023", split=["train", "test", "challenge"])
 
 # Download SoccerNet videos (require password from NDA to download videos)
-mySoccerNetDownloader.password = input("Password for videos? (contact the author):\n")
+mySoccerNetDownloader.password = "Password for videos? (contact the author)"
 mySoccerNetDownloader.downloadGames(files=["1_224p.mkv", "2_224p.mkv"], split=["train", "valid", "test"]) # download 224p Videos
 mySoccerNetDownloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv"], split=["train", "valid", "test"]) # download 720p Videos 
 mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet") # download 720p Videos 
 mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet-Tracking") # download single camera RAW Videos 
+
+# Download SoccerNet in OSL ActionSpotting format
+mySoccerNetDownloader.downloadDataTask(task="spotting-OSL", split=["train", "valid", "test", "challenge"], version="ResNET_PCA512")
+mySoccerNetDownloader.downloadDataTask(task="spotting-OSL", split=["train", "valid", "test", "challenge"], version="224p", password=<PW_FROM_NDA>)
+
 ```
 
 ## How to read the list Games (Python)

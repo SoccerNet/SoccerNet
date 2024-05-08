@@ -141,7 +141,92 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
             if "challenge" in split:
                 print("no challenge split for SN-Depth")
-                    
+
+        elif task == "spotting-OSL":
+            if version == "224p":
+                if "train" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/x2okf31MzBZRpl4 # user for SoccerNetv2 Action Spotting JSON format
+                                            user="x2okf31MzBZRpl4",
+                                            password=password,
+                                            verbose=verbose)
+                if "valid" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/x2okf31MzBZRpl4 # user for SoccerNetv2 Action Spotting JSON format
+                                            user="x2okf31MzBZRpl4",
+                                            password=password,
+                                            verbose=verbose)
+                if "test" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/x2okf31MzBZRpl4 # user for SoccerNetv2 Action Spotting JSON format
+                                            user="x2okf31MzBZRpl4",
+                                            password=password,
+                                            verbose=verbose)
+                if "challenge" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "challenge.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/x2okf31MzBZRpl4 # user for SoccerNetv2 Action Spotting JSON format
+                                            user="x2okf31MzBZRpl4",
+                                            password=password,
+                                            verbose=verbose)
+            if version == "ResNET_PCA512" or version == None:
+                if "train" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/bpQnDs15nPDQUHo # user for SoccerNetv2 Action Spotting JSON format
+                                            user="bpQnDs15nPDQUHo",
+                                            password=password,
+                                            verbose=verbose)
+                if "valid" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/bpQnDs15nPDQUHo # user for SoccerNetv2 Action Spotting JSON format
+                                            user="bpQnDs15nPDQUHo",
+                                            password=password,
+                                            verbose=verbose)
+                if "test" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/bpQnDs15nPDQUHo # user for SoccerNetv2 Action Spotting JSON format
+                                            user="bpQnDs15nPDQUHo",
+                                            password=password,
+                                            verbose=verbose)
+                if "challenge" in split:
+                    res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.zip"),
+                                            path_owncloud=os.path.join(self.OwnCloudServer, "challenge.zip").replace(
+                                                ' ', '%20').replace('\\', '/'),
+                                            # https://exrcsdrive.kaust.edu.sa/index.php/s/bpQnDs15nPDQUHo # user for SoccerNetv2 Action Spotting JSON format
+                                            user="bpQnDs15nPDQUHo",
+                                            password=password,
+                                            verbose=verbose)
+            if "test_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.json"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "test.json").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/vDntX64kYkeyqN1 # user for SoccerNetv2 Action Spotting JSON format GT
+                                        user="vDntX64kYkeyqN1",
+                                        password=password,
+                                        verbose=verbose)
+                        
+            
+            if "challenge_labels" in split:
+                res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.json"),
+                                        path_owncloud=os.path.join(self.OwnCloudServer, "challenge.json").replace(
+                                            ' ', '%20').replace('\\', '/'),
+                                        # https://exrcsdrive.kaust.edu.sa/index.php/s/vDntX64kYkeyqN1 # user for SoccerNetv2 Action Spotting JSON format GT
+                                        user="vDntX64kYkeyqN1",
+                                        password=password,
+                                        verbose=verbose)            
         # 2024
         elif task == "mvfoul-2024" or task == "mvfoul" or task == "mvfouls-2024" or task == "mvfouls":
             if version == "224p" or version is None:
