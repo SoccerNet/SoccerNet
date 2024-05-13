@@ -117,6 +117,7 @@ mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet-Tracking") # download 
 
 # Download SoccerNet in OSL ActionSpotting format
 mySoccerNetDownloader.downloadDataTask(task="spotting-OSL", split=["train", "valid", "test", "challenge"], version="ResNET_PCA512")
+mySoccerNetDownloader.downloadDataTask(task="spotting-OSL", split=["train", "valid", "test", "challenge"], version="baidu_soccer_embeddings")
 mySoccerNetDownloader.downloadDataTask(task="spotting-OSL", split=["train", "valid", "test", "challenge"], version="224p", password=<PW_FROM_NDA>)
 
 ```
