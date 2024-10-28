@@ -34,7 +34,8 @@ setup(
         'matplotlib',
         'google-measurement-protocol',
         'pycocoevalcap',
-        'sn-trackeval',
+        # 'sn-trackeval', # broken, trackeval need to fix or install independently
+        'huggingface_hub[cli]',
     ],
     classifiers=[
         # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package

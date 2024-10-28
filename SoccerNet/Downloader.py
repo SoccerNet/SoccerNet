@@ -5,6 +5,7 @@ from tqdm import tqdm
 import json
 import random
 from SoccerNet.utils import getListGames
+from huggingface_hub import snapshot_download
 
 class MyProgressBar():
     def __init__(self, filename):
@@ -90,7 +91,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
             LocalDirectory, OwnCloudServer)
         self.password = None
 
-    def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet", version=None): # Generic password for public data
+    def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet", version=None, source="HuggingFace"): # Generic password for public data
         
         if task == "depth-football":
             if "train" in split:
@@ -261,6 +262,47 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         user="vDntX64kYkeyqN1",
                                         password=password,
                                         verbose=verbose)            
+       
+        # 2025
+        elif task == "mvfouls-2025":
+            if source == "HuggingFace":
+                if version == "720p" or version is None:
+                    snapshot_download(repo_id="SoccerNet/SN-MVFouls-2025",
+                                    repo_type="dataset", revision="main",
+                                    local_dir=os.path.join(self.LocalDirectory, task),
+                                    allow_patterns=["*"+s+"_720p.zip" for s in split])
+                elif version == "224p":
+                    snapshot_download(repo_id="SoccerNet/SN-MVFouls-2025",
+                                    repo_type="dataset", revision="main",
+                                    local_dir=os.path.join(self.LocalDirectory, task),
+                                    allow_patterns=["*"+s+".zip" for s in split])
+            else:
+                print('Please use source="HuggingFace" for this task')
+        elif task == "gamestate-2025":
+            if source == "HuggingFace":
+                snapshot_download(repo_id="SoccerNet/SN-GSR-2025",
+                                repo_type="dataset", revision="main",
+                                local_dir=os.path.join(self.LocalDirectory, task),
+                                allow_patterns=["*"+s+".zip" for s in split])
+            else:
+                print('Please use source="HuggingFace" for this task')
+        elif task == "depth-2025":
+            if source == "HuggingFace":
+                snapshot_download(repo_id="SoccerNet/SN-Depth-2025",
+                                repo_type="dataset", revision="main",
+                                local_dir=os.path.join(self.LocalDirectory, task),
+                                allow_patterns=["*"+s+".zip" for s in split])
+            else:
+                print('Please use source="HuggingFace" for this task')    
+        elif task == "spotting-ball-2025":
+            if source == "HuggingFace":
+                snapshot_download(repo_id="SoccerNet/SN-BAS-2025",
+                                repo_type="dataset", revision="main",
+                                local_dir=os.path.join(self.LocalDirectory, task),
+                                allow_patterns=["*"+s+".zip" for s in split])
+            else:
+                print('Please use source="HuggingFace" for this task')
+        
         # 2024
         elif task == "mvfoul-2024" or task == "mvfoul" or task == "mvfouls-2024" or task == "mvfouls":
             if version == "224p" or version is None:
