@@ -6,6 +6,10 @@ import json
 import random
 from SoccerNet.utils import getListGames
 from huggingface_hub import snapshot_download
+from pathlib import Path
+from getpass import getpass
+import json
+import boto3
 
 class MyProgressBar():
     def __init__(self, filename):
@@ -46,9 +50,9 @@ class OwnCloudDownloader():
         if user is None:
             return 5
 
-        if user is not None or password is not None:  
+        if user is not None or password is not None:
             # update Password
-             
+
             password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
             password_mgr.add_password(
                 None, self.OwnCloudServer, user, password)
@@ -83,6 +87,59 @@ class OwnCloudDownloader():
 
         return 0
 
+    def getSpiideoCredentials(self):
+        fn = Path.home() / '.cache' / 'spiideo_research' / 'credentials.json'
+        if fn.exists():
+            return json.loads(fn.read_text())
+        print("\nPlease register at https://research.spiideo.com and provide the credentials used below:\n")
+        user = input('Spiideo Research Username/Email: ')
+        password = getpass('Spiideo Research Password: ')
+        fn.parent.mkdir(parents=True, exist_ok=True)
+        fn.write_text(json.dumps([user, password]))
+        return user, password
+
+    def spiideoDownload(self, path_local, key, verbose=True):
+        if os.path.exists(path_local): # check existence
+            if verbose:
+                print(f"{path_local} already exists")
+            return 2
+        os.makedirs(os.path.dirname(path_local), exist_ok=True)
+
+        region = 'eu-west-1'
+        user_pool_login_id = 'cognito-idp.eu-west-1.amazonaws.com/eu-west-1_OKL182JmE'
+        client_id = '3v39pho25o0djanccs7b8hdccb'
+        identity_pool = 'eu-west-1:ef3a2391-2f9c-48bb-8eb0-2e2ec31d259f'
+        bucket = 'research-data.eu-west-1.prod.spiideo'
+
+        user, password = self.getSpiideoCredentials()
+        auth_data = {'USERNAME': user , 'PASSWORD': password}
+        provider_client = boto3.client('cognito-idp', region_name=region)
+        resp = provider_client.initiate_auth(AuthFlow='USER_PASSWORD_AUTH', AuthParameters=auth_data, ClientId=client_id)
+        jwt = resp['AuthenticationResult']['IdToken']
+
+        client = boto3.client('cognito-identity', region)
+        response = client.get_id(
+            IdentityPoolId=identity_pool,
+            Logins={
+                user_pool_login_id: jwt
+            }
+        )
+
+        resp = client.get_credentials_for_identity(IdentityId=response['IdentityId'], Logins={user_pool_login_id: jwt})
+
+        s3 = boto3.resource('s3',
+            aws_access_key_id=resp['Credentials']['AccessKeyId'],
+            aws_secret_access_key=resp['Credentials']['SecretKey'],
+            aws_session_token=resp['Credentials']['SessionToken'],
+            region_name=region,
+        )
+        obj = s3.Object(bucket_name=bucket, key=key)
+        with open(path_local, "wb") as fd:
+            for buf in obj.get()['Body'].iter_chunks():
+                fd.write(buf)
+
+        return 0
+
 
 class SoccerNetDownloader(OwnCloudDownloader):
     def __init__(self, LocalDirectory,
@@ -92,8 +149,21 @@ class SoccerNetDownloader(OwnCloudDownloader):
         self.password = None
 
     def downloadDataTask(self, task, split=["train","valid","test","challenge"], verbose=True, password="SoccerNet", version=None, source="HuggingFace"): # Generic password for public data
-        
-        if task == "depth-football":
+
+        if task == "SpiideoSynLoc":
+            if version is None:
+                version = '4K'
+            for sp in split:
+                if sp == 'valid':
+                    sp = 'val'
+                self.spiideoDownload(path_local=os.path.join(self.LocalDirectory, task, sp + ".zip"),
+                                     key=os.path.join("datasets", "SoccerNet", "SpiideoSynLoc", version, sp + ".zip"),
+                                     verbose=verbose)
+            self.spiideoDownload(path_local=os.path.join(self.LocalDirectory, task, "annotations.zip"),
+                                    key=os.path.join("datasets", "SoccerNet", "SpiideoSynLoc", "4K", "annotations.zip"),
+                                    verbose=verbose)
+
+        elif task == "depth-football":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "train.zip").replace(
@@ -117,7 +187,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
             if "challenge" in split:
                 print("no challenge split for SN-Depth")
-                
+
         elif task == "depth-basketball":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
@@ -210,7 +280,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                             user="tqXXg1LdpM1YRUW",
                                             password=password,
                                             verbose=verbose)
-            
+
             if version == "ResNET_PCA512" or version == None:
                 if "train" in split:
                     res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, version, "train.zip"),
@@ -252,8 +322,8 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         user="vDntX64kYkeyqN1",
                                         password=password,
                                         verbose=verbose)
-                        
-            
+
+
             if "challenge_labels" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.json"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "challenge.json").replace(
@@ -261,8 +331,8 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         # https://exrcsdrive.kaust.edu.sa/index.php/s/vDntX64kYkeyqN1 # user for SoccerNetv2 Action Spotting JSON format GT
                                         user="vDntX64kYkeyqN1",
                                         password=password,
-                                        verbose=verbose)            
-       
+                                        verbose=verbose)
+
         # 2025
         elif task == "mvfouls-2025":
             if source == "HuggingFace":
@@ -293,7 +363,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                 local_dir=os.path.join(self.LocalDirectory, task),
                                 allow_patterns=["*"+s+".zip" for s in split])
             else:
-                print('Please use source="HuggingFace" for this task')    
+                print('Please use source="HuggingFace" for this task')
         elif task == "spotting-ball-2025":
             if source == "HuggingFace":
                 snapshot_download(repo_id="SoccerNet/SN-BAS-2025",
@@ -302,7 +372,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                 allow_patterns=["*"+s+".zip" for s in split])
             else:
                 print('Please use source="HuggingFace" for this task')
-        
+
         # 2024
         elif task == "mvfoul-2024" or task == "mvfoul" or task == "mvfouls-2024" or task == "mvfouls":
             if version == "224p" or version is None:
@@ -479,7 +549,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         # https://exrcsdrive.kaust.edu.sa/index.php/s/ThC443j7rM57UPp # user for caption splits GT
                                         user="ThC443j7rM57UPp",
                                         password=password,
-                                        verbose=verbose)        
+                                        verbose=verbose)
         elif task == "spotting-ball-2024":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
@@ -532,7 +602,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         user="QfgR2L12SQB0WFz",
                                         password=password,
                                         verbose=verbose)
-        
+
         # 2023
         elif task == "calibration-2023":
             if "train" in split:
@@ -811,7 +881,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                 except:
                     print("Stopped download, cleaning cache")
                 self.LocalDirectory = os.path.dirname(self.LocalDirectory)
-            
+
             if "valid" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
                 try:
@@ -884,7 +954,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
             if "challenge" in split:
                 self.LocalDirectory = os.path.join(self.LocalDirectory, task)
                 try:
-                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy", 
+                    self.downloadGames(files=["1_baidu_soccer_embeddings.npy",
                                               "2_baidu_soccer_embeddings.npy"], split="challenge", task="caption")
                 except:
                     print("Stopped download, cleaning cache")
@@ -949,7 +1019,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
 
         # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/Ffr8fsJcljh2Ds5 # user for reid splits
-        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/H16Jx8AD39RzhFU # user for reid splits GT 
+        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/H16Jx8AD39RzhFU # user for reid splits GT
         elif task == "reid":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
@@ -959,7 +1029,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
                 if res == 1: #HTTPError
                     print("This function should download train.zip for reid - but train.zip was not uploaded on the server yet!")
-            
+
             if "valid" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "valid.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "valid.zip").replace(' ', '%20').replace('\\', '/'),
@@ -968,7 +1038,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
                 if res == 1: #HTTPError
                     print("This function should download valid.zip for reid - but valid.zip was not uploaded on the server yet!")
-            
+
             if "test" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(' ', '%20').replace('\\', '/'),
@@ -977,7 +1047,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
                 if res == 1: #HTTPError
                     print("This function should download test.zip for reid - but test.zip was not uploaded on the server yet!")
-            
+
             if "challenge" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "challenge.zip").replace(' ', '%20').replace('\\', '/'),
@@ -995,7 +1065,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
                 if res == 1: #HTTPError
                     print("This function should download test_labels.zip for reid - but test_labels.zip was not uploaded on the server yet! - or check the password")
-            
+
             if "challenge_labels" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge_bbox_info.json"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "challenge_bbox_info.json").replace(' ', '%20').replace('\\', '/'),
@@ -1006,7 +1076,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                     print("This function should download challenge_labels.zip for reid - but challenge_labels.zip was not uploaded on the server yet! - or check the password")
 
         # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/o9tzUs2GcuEwcnr # user for tracking splits
-        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/qWNjAzjEI6hezNf # user for tracking splits GT 
+        # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/qWNjAzjEI6hezNf # user for tracking splits GT
         elif task == "tracking":
             if "train" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "train.zip"),
@@ -1016,7 +1086,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                         verbose=verbose)
                 if res == 1: #HTTPError
                     print("This function should download train.zip for tracking - but train.zip was not uploaded on the server yet!")
-                
+
             if "test" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "test.zip").replace(' ', '%20').replace('\\', '/'),
@@ -1038,7 +1108,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
             if "test_labels" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "test_labels.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "test_labels.zip").replace(' ', '%20').replace('\\', '/'),
-                                        user="qWNjAzjEI6hezNf",  # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/qWNjAzjEI6hezNf # user for tracking splits GT 
+                                        user="qWNjAzjEI6hezNf",  # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/qWNjAzjEI6hezNf # user for tracking splits GT
                                         password=password,
                                         verbose=verbose)
                 if res == 1: #HTTPError
@@ -1047,7 +1117,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
             if "challenge_labels" in split:
                 res = self.downloadFile(path_local=os.path.join(self.LocalDirectory, task, "challenge_labels.zip"),
                                         path_owncloud=os.path.join(self.OwnCloudServer, "challenge_labels.zip").replace(' ', '%20').replace('\\', '/'),
-                                        user="qWNjAzjEI6hezNf",  # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/qWNjAzjEI6hezNf # user for tracking splits GT 
+                                        user="qWNjAzjEI6hezNf",  # https://exrcsdrive.kaust.edu.sa/exrcsdrive/index.php/s/qWNjAzjEI6hezNf # user for tracking splits GT
                                         password=password,
                                         verbose=verbose)
                 if res == 1: #HTTPError
@@ -1092,7 +1162,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                 path_owncloud=FileURL,
                                 user=user,  # user for video
                                 password=self.password)
-                                    
+
     def downloadGameIndex(self, index, files=["1.mkv", "2.mkv", "Labels.json"], verbose=True):
         return self.downloadGame(getListGames("all")[index], files=files, verbose=verbose)
 
@@ -1140,7 +1210,7 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                             user="gJ8gja7V8SLxYBh",  # user for video HQ
                                             password=self.password,
                                             verbose=verbose)
-                
+
                 # V3
                 elif file in ["Labels-v3.json"]:
                     res = self.downloadFile(path_local=os.path.join(GameDirectory, file),
@@ -1197,9 +1267,9 @@ class SoccerNetDownloader(OwnCloudDownloader):
                     res = self.downloadFile(path_local=os.path.join(GameDirectory, file),
                                             path_owncloud=FileURL,
                                             user="okteXlk6jmDXNJc",  # shared folder for V3
-                                            password="SoccerNet_Reviewers_SDATA", 
+                                            password="SoccerNet_Reviewers_SDATA",
                                             verbose=verbose)
-                                            
+
                 # Labels
                 elif "Labels" in file:
                     # elif file in ["Labels.json"]:
@@ -1243,14 +1313,14 @@ class SoccerNetDownloader(OwnCloudDownloader):
                                     password=self.password,
                                     verbose=verbose)
 
-                    
+
 if __name__ == "__main__":
 
     from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
     # Load the arguments
     parser = ArgumentParser(description='Test Downloader',
-                            formatter_class=ArgumentDefaultsHelpFormatter) 
+                            formatter_class=ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('--SoccerNet_path',   required=True,
                         type=str, help='Path to the SoccerNet-V2 dataset folder')
@@ -1262,4 +1332,3 @@ if __name__ == "__main__":
     mySoccerNetDownloader.password = args.password
     mySoccerNetDownloader.downloadGameIndex(index=549, files=[
                                        "1_HQ.mkv", "2_HQ.mkv", "video.ini", "Labels.json"])
-   
