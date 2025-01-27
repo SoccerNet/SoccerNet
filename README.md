@@ -116,6 +116,7 @@ mySoccerNetDownloader.downloadGames(files=["1_224p.mkv", "2_224p.mkv"], split=["
 mySoccerNetDownloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv"], split=["train", "valid", "test"]) # download 720p Videos
 mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet") # download 720p Videos
 mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet-Tracking") # download single camera RAW Videos
+mySoccerNetDownloader.downloadGame(files=["1_720p.mkv", "2_720p.mkv"], game="europe_uefa-champions-league/2016-2017/2017-04-18 - 21-45 Real Madrid 4 - 2 Bayern Munich") # download video for a single game
 
 # Download SoccerNet in OSL ActionSpotting format
 mySoccerNetDownloader.downloadDataTask(task="spotting-OSL", split=["train", "valid", "test", "challenge"], version="ResNET_PCA512")
