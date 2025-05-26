@@ -33,7 +33,7 @@ The data currently is expected to be in the pkl format with top level keys:
 }
 ```
 
-For reference, we have provided the data [here](tracking_data/data/test_windows.pkl). You can inspect the data if you prefer.
+For reference, we have provided the data [here](https://drive.google.com/drive/u/2/folders/1nwGRzsB_ikVvClJOxfQju1CvoCHYT4FO). You need to download it and place it inside ```tracking_data/data``` directory.
 
 ## Usage
 
