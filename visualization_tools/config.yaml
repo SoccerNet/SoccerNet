@@ -9,8 +9,8 @@ data:
 
 # Event selection
 event:
-  type: "No-pass"  # Options: Pass, No-pass, etc.
-  index: 20  # Which occurrence of this event type to visualize
+  type: "Pass"  # Options: Pass, No-pass, etc.
+  index: 0  # Which occurrence of this event type to visualize
 
 # Visualization settings
 visualization:
