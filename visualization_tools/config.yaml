@@ -30,8 +30,8 @@ visualization:
     num_stripes: 20
     light_color: "#6da942"
     dark_color: "#507d2a"
-    grass_texture: true
-    texture_alpha: 0.03
+    grass_texture: true  # Toggle grass texture on/off
+    texture_alpha: 0.03  # Transparency level for grass texture
   
   # Player and ball settings
   players:
