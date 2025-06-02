@@ -1,0 +1,111 @@
+# Soccer Visualizer Configuration
+# This file contains all the settings for soccer visualization
+
+# Data settings
+data:
+  input_dir: "tracking_data/data/"
+  output_dir: "visualizations"
+  split: "test"  # Options: train, valid, test
+
+# Event selection
+event:
+  type: "Pass"  # Options: Pass, No-pass, etc.
+  index: 0  # Which occurrence of this event type to visualize
+
+# Visualization settings
+visualization:
+  # Frame settings
+  frame:
+    start: 0  # Starting frame
+    end: -1  # Ending frame (-1 for all frames)
+    specific: null  # Visualize only a specific frame (null for animation)
+  
+  # Field appearance
+  field:
+    length: 105.0
+    width: 68.0
+    padding: 2.0
+    line_color: "white"
+    line_width: 2
+    num_stripes: 20
+    light_color: "#6da942"
+    dark_color: "#507d2a"
+    grass_texture: true  # Toggle grass texture on/off
+    texture_alpha: 0.03  # Transparency level for grass texture
+  
+  # Player and ball settings
+  players:
+    show: true
+    home_color: "blue"
+    away_color: "red"
+    radius: 1.0
+    show_jersey_numbers: true
+    jersey_font_size: 8
+  
+  ball:
+    show: true
+    color: "black"
+    radius: 0.7
+  
+  # Trail settings
+  trails:
+    show: true
+    length: 5  # Number of previous frames to show
+    player_alpha: 0.5
+    ball_alpha: 0.5
+    player_width: 1.5
+    ball_width: 1.0
+
+# Graph analysis settings
+graph:
+  enabled: true
+  type: "distance"  # Options: "distance", "knn"
+  
+  # Distance-based graph settings
+  distance:
+    threshold: 30.0  # Maximum distance in meters
+    connect_same_team: true
+    connect_ball_to_players: true
+  
+  # K-nearest neighbors settings
+  knn:
+    k: 8  # Number of nearest neighbors
+    connect_same_team_only: false
+  
+  # Edge visualization
+  edges:
+    home_team_color: "blue"
+    away_team_color: "red"
+    ball_connection_color: "black"
+    line_width: 1.0
+    alpha: 0.5
+  
+  # Legend
+  show_legend: true
+  legend_position: "upper left"
+
+# Animation settings
+animation:
+  create: true  # Whether to create animation
+  fps: 5
+  interval: 200  # Milliseconds between frames
+  dpi: 100
+  format: "gif"  # Options: gif, mp4
+  
+# Output settings
+output:
+  save_frames: false  # Save individual frames
+  frame_format: "png"
+  filename_pattern: "{event_type}_{game_time}_{timestamp}"  # Available: {event_type}, {game_time}, {timestamp}, {graph_type}
+  
+# Batch processing
+batch:
+  enabled: false
+  events_per_type: 5  # Process first N events of each type
+  event_types: ["Pass", "No-pass"] 
+  
+# Advanced settings
+advanced:
+  random_seed: 42  # For reproducible grass texture
+  figure_size: [12, 8]
+  verbose: true  # Print progress messages
