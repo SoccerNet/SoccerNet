@@ -6,10 +6,7 @@ customizable appearance including stripes, grass texture, and all standard
 field markings.
 """
 
-from typing import Optional, Tuple
 import matplotlib.pyplot as plt
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle, Arc, Circle
 import numpy as np
 from scipy.ndimage import gaussian_filter
@@ -42,16 +39,16 @@ class Field:
     
     def __init__(
         self, 
-        length: float = 105.0, 
-        width: float = 68.0,
-        line_color: str = "white",
-        line_width: int = 2,
-        padding: float = 2.0,
-        num_stripes: int = 20,
-        light_color: str = "#6da942",
-        dark_color: str = "#507d2a",
-        noise_alpha: float = 0.03
-    ) -> None:
+        length = 105.0, 
+        width = 68.0,
+        line_color = "white",
+        line_width = 2,
+        padding = 2.0,
+        num_stripes = 20,
+        light_color = "#6da942",
+        dark_color = "#507d2a",
+        noise_alpha = 0.03
+    ):
         """
         Initialize a Field object.
         
@@ -82,7 +79,7 @@ class Field:
         noise = np.random.rand(200, 200)
         self.texture = gaussian_filter(noise, sigma=0.5)
     
-    def draw(self, ax: Optional[Axes] = None, figsize: Tuple[int, int] = (12, 8)) -> Tuple[Figure, Axes]:
+    def draw(self, ax = None, figsize = (12, 8)):
         """
         Draw the soccer field.
         
@@ -109,7 +106,7 @@ class Field:
         
         return fig, ax
     
-    def _draw_background(self, ax: Axes) -> None:
+    def _draw_background(self, ax):
         """Draw the field background with stripes and texture."""
         # Background with padding
         background = Rectangle(
@@ -144,7 +141,7 @@ class Field:
             cmap='gray'
         )
     
-    def _draw_field_lines(self, ax: Axes) -> None:
+    def _draw_field_lines(self, ax):
         """Draw all field lines and markings."""
         # Outer boundary
         ax.plot(
@@ -186,7 +183,7 @@ class Field:
         self._draw_goal_areas(ax)
         self._draw_corner_arcs(ax)
     
-    def _draw_penalty_areas(self, ax: Axes) -> None:
+    def _draw_penalty_areas(self, ax):
         """Draw penalty areas and penalty spots."""
         # Left penalty area
         left_box = Rectangle(
@@ -238,7 +235,7 @@ class Field:
         ax.plot(11, self.width / 2, 'o', color=self.line_color, markersize=5)
         ax.plot(self.length - 11, self.width / 2, 'o', color=self.line_color, markersize=5)
     
-    def _draw_goal_areas(self, ax: Axes) -> None:
+    def _draw_goal_areas(self, ax):
         """Draw goal areas and goalposts."""
         # Left goal area
         left_goal_area = Rectangle(
@@ -277,7 +274,7 @@ class Field:
             linewidth=self.line_width + 2
         )
     
-    def _draw_corner_arcs(self, ax: Axes) -> None:
+    def _draw_corner_arcs(self, ax):
         """Draw corner arc markings."""
         corners = [
             (0, 0, 0, 90),          # Bottom left

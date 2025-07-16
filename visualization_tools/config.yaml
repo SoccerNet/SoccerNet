@@ -1,5 +1,5 @@
 # Soccer Visualizer Configuration
-# This file contains all the settings for soccer visualization
+# Minimal configuration with clear separation of concerns
 
 # Data settings
 data:
@@ -9,8 +9,8 @@ data:
 
 # Event selection
 event:
-  type: "Pass"  # Options: Pass, No-pass, etc.
-  index: 0  # Which occurrence of this event type to visualize
+  type: "Pass"  # Event type to visualize
+  index: 0  # Which occurrence to visualize
 
 # Visualization settings
 visualization:
@@ -18,7 +18,7 @@ visualization:
   frame:
     start: 0  # Starting frame
     end: -1  # Ending frame (-1 for all frames)
-    specific: null  # Visualize only a specific frame (null for animation)
+    specific: null  # Single frame to visualize (null for animation)
   
   # Field appearance
   field:
@@ -30,8 +30,6 @@ visualization:
     num_stripes: 20
     light_color: "#6da942"
     dark_color: "#507d2a"
-    grass_texture: true  # Toggle grass texture on/off
-    texture_alpha: 0.03  # Transparency level for grass texture
   
   # Player and ball settings
   players:
@@ -50,27 +48,44 @@ visualization:
   # Trail settings
   trails:
     show: true
-    length: 5  # Number of previous frames to show
+    length: 5
     player_alpha: 0.5
     ball_alpha: 0.5
     player_width: 1.5
     ball_width: 1.0
 
-# Graph analysis settings
+# Graph settings 
 graph:
   enabled: true
-  type: "distance"  # Options: "distance", "knn"
+  type: "none"  # Current graph type
   
-  # Distance-based graph settings
-  distance:
-    threshold: 30.0  # Maximum distance in meters
-    connect_same_team: true
-    connect_ball_to_players: true
+  # Graph-specific parameters
+  ball_knn:
+    k: 8
   
-  # K-nearest neighbors settings
-  knn:
-    k: 8  # Number of nearest neighbors
-    connect_same_team_only: false
+  ball_radius:
+    radius: 20.0
+  
+  knn_spatial:
+    k: 8
+  
+  radius_spatial:
+    radius: 20.0
+  
+  knn_full:
+    k: 8
+  
+  radius_full:
+    radius: 20.0
+  
+  tactical:
+    # No specific parameters needed
+  
+  none:
+    # No parameters
+  
+  fc:
+    # No parameters
   
   # Edge visualization
   edges:
@@ -86,26 +101,14 @@ graph:
 
 # Animation settings
 animation:
-  create: true  # Whether to create animation
+  create: true
   fps: 5
-  interval: 200  # Milliseconds between frames
+  interval: 200
   dpi: 100
-  format: "gif"  # Options: gif, mp4
-  
+  format: "gif"
+
 # Output settings
 output:
-  save_frames: false  # Save individual frames
+  save_frames: false
   frame_format: "png"
-  filename_pattern: "{event_type}_{game_time}_{timestamp}"  # Available: {event_type}, {game_time}, {timestamp}, {graph_type}
-  
-# Batch processing
-batch:
-  enabled: false
-  events_per_type: 5  # Process first N events of each type
-  event_types: ["Pass", "No-pass"] 
-  
-# Advanced settings
-advanced:
-  random_seed: 42  # For reproducible grass texture
-  figure_size: [12, 8]
-  verbose: true  # Print progress messages
+  filename_pattern: "{graph_type}_{event_type}_{game_time}_{timestamp}"

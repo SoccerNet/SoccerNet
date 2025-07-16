@@ -32,7 +32,7 @@ class MovingObject:
         >>> obj.draw(ax, frame=1)
     """
     
-    def __init__(self, color: str, radius: float = 1, zorder: int = 4) -> None:
+    def __init__(self, color, radius=1, zorder=4):
         """
         Initialize a moving object.
         
@@ -41,13 +41,13 @@ class MovingObject:
             radius: Radius of the object circle
             zorder: Z-order for rendering (higher values appear on top)
         """
-        self.positions: Dict[int, Tuple[float, float]] = {}
-        self.color: str = color
-        self.radius: float = radius
-        self.zorder: int = zorder
-        self.marker: Optional[Circle] = None
+        self.positions = {}
+        self.color = color
+        self.radius = radius
+        self.zorder = zorder
+        self.marker = None
     
-    def add_position(self, frame: int, x: float, y: float) -> None:
+    def add_position(self, frame, x, y):
         """
         Add position for a specific frame.
         
@@ -58,7 +58,7 @@ class MovingObject:
         """
         self.positions[frame] = (x, y)
     
-    def get_position(self, frame: int) -> Optional[Tuple[float, float]]:
+    def get_position(self, frame):
         """
         Get position at a specific frame.
         
@@ -70,7 +70,7 @@ class MovingObject:
         """
         return self.positions.get(frame)
     
-    def get_positions_range(self, start_frame: int, end_frame: int) -> List[Tuple[float, float]]:
+    def get_positions_range(self, start_frame, end_frame):
         """
         Get positions for a range of frames.
         
@@ -88,9 +88,9 @@ class MovingObject:
                 positions.append(pos)
         return positions
         
-    def draw(self, ax: Axes, frame: int, show_trail: bool = True, 
-             trail_length: int = 5, trail_alpha: float = 0.5,
-             trail_width: float = 1.5) -> Optional[Circle]:
+    def draw(self, ax, frame, show_trail=True, 
+             trail_length=5, trail_alpha=0.5,
+             trail_width=1.5):
         """
         Draw the object on the field.
         
@@ -128,13 +128,13 @@ class MovingObject:
         
         return self.marker
     
-    def _clear_visual_elements(self, ax: Axes) -> None:
+    def _clear_visual_elements(self, ax):
         """Remove previous visual elements from the axes."""
         if self.marker and self.marker in ax.patches:
             self.marker.remove()
         self.marker = None
     
-    def _create_marker(self, ax: Axes, x: float, y: float) -> None:
+    def _create_marker(self, ax, x, y):
         """Create the circular marker for the object."""
         self.marker = Circle(
             (x, y), 
@@ -146,7 +146,7 @@ class MovingObject:
         )
         ax.add_patch(self.marker)
     
-    def _draw_additional_elements(self, ax: Axes, x: float, y: float) -> None:
+    def _draw_additional_elements(self, ax, x, y):
         """
         Draw any additional elements (overridden in subclasses).
         
@@ -157,15 +157,15 @@ class MovingObject:
         """
         pass
     
-    def _draw_trail(self, ax: Axes, frame: int, trail_length: int, 
-                    trail_alpha: float, trail_width: float) -> None:
+    def _draw_trail(self, ax, frame, trail_length, 
+                    trail_alpha, trail_width):
         """Draw motion trail for the object."""
         position = self.get_position(frame)
         if position is None:
             return
             
         x, y = position
-        trail_positions: List[Tuple[float, float]] = []
+        trail_positions = []
         
         # Collect previous positions
         for prev_frame in range(max(1, frame - trail_length), frame):
@@ -180,8 +180,8 @@ class MovingObject:
             
             self._draw_trail_line(ax, trail_x, trail_y, trail_alpha, trail_width)
     
-    def _draw_trail_line(self, ax: Axes, trail_x: List[float], trail_y: List[float],
-                         trail_alpha: float, trail_width: float) -> None:
+    def _draw_trail_line(self, ax, trail_x, trail_y,
+                         trail_alpha, trail_width):
         """Draw the trail line with custom styling."""
         ax.plot(
             trail_x, trail_y, '-', 
@@ -211,11 +211,11 @@ class Player(MovingObject):
         >>> player.draw(ax, frame=1)
     """
     
-    def __init__(self, player_id: Union[int, str], team_id: str, 
-                 jersey_number: int, color: str = "blue", 
-                 radius: float = 1.0, 
-                 show_jersey: bool = True,
-                 jersey_font_size: int = 8) -> None:
+    def __init__(self, player_id, team_id, 
+                 jersey_number, color="blue", 
+                 radius=1.0, 
+                 show_jersey=True,
+                 jersey_font_size=8):
         """
         Initialize a player object.
         
@@ -229,10 +229,10 @@ class Player(MovingObject):
             jersey_font_size: Font size for jersey number
         """
         super().__init__(color=color, radius=radius, zorder=4)
-        self.id: Union[int, str] = player_id
-        self.team_id: str = team_id
-        self.jersey: int = jersey_number
-        self.text: Optional[Text] = None
+        self.id = player_id
+        self.team_id = team_id
+        self.jersey = jersey_number
+        self.text = None
         self.show_jersey: bool = show_jersey
         self.jersey_font_size: int = jersey_font_size
     
@@ -273,7 +273,7 @@ class Ball(MovingObject):
         >>> ball.draw(ax, frame=1)
     """
     
-    def __init__(self, color: str = "black", radius: float = 0.7) -> None:
+    def __init__(self, color="black", radius=0.7):
         """
         Initialize the ball object.
         
@@ -284,7 +284,7 @@ class Ball(MovingObject):
         # Ball has higher z-order to appear above players
         super().__init__(color=color, radius=radius, zorder=6)
     
-    def _create_marker(self, ax: Axes, x: float, y: float) -> None:
+    def _create_marker(self, ax, x, y):
         """Create ball marker with custom edge styling."""
         self.marker = Circle(
             (x, y), 
@@ -296,8 +296,8 @@ class Ball(MovingObject):
         )
         ax.add_patch(self.marker)
     
-    def _draw_trail_line(self, ax: Axes, trail_x: List[float], trail_y: List[float],
-                         trail_alpha: float, trail_width: float) -> None:
+    def _draw_trail_line(self, ax, trail_x, trail_y,
+                         trail_alpha, trail_width):
         """Draw ball trail with custom styling (gray color)."""
         ax.plot(
             trail_x, trail_y, '-', 
@@ -320,8 +320,8 @@ class Referee(Player):
     Special type of player with distinct visual properties.
     """
     
-    def __init__(self, referee_id: Union[int, str], 
-                 color: str = "yellow", radius: float = 0.9) -> None:
+    def __init__(self, referee_id, 
+                 color="yellow", radius=0.9):
         """Initialize referee with yellow color by default."""
         super().__init__(
             player_id=referee_id,
@@ -332,6 +332,6 @@ class Referee(Player):
             show_jersey=False  # Don't show jersey number
         )
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         """String representation of referee."""
         return f"Referee(id={self.id})"

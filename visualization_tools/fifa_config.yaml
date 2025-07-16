@@ -1,0 +1,72 @@
+data:
+  input_dir: "/home/karkid/temporal_localization/soccernet_ball_spotting_fifa2022"
+  output_dir: "fifa_visualizations"
+  split: "train"
+  game_id: "10502"
+  annotations_file: "train.json"
+
+event:
+  type: "PASS"
+  index: 2
+  window_ms: 2000  # milliseconds before/after event
+
+visualization:
+  frame:
+    start: 0
+    end: -1
+    specific: null
+  
+  field:
+    length: 105.0
+    width: 68.0
+    padding: 2.0
+    line_color: "white"
+    line_width: 2
+    num_stripes: 20
+    light_color: "#6da942"
+    dark_color: "#507d2a"
+    noise_alpha: 0.03
+  
+  players:
+    show: true
+    home_color: "#0066CC"
+    away_color: "#CC0000"
+    radius: 1.0
+    show_jersey_numbers: true
+    jersey_font_size: 8
+  
+  ball:
+    show: true
+    color: "white"
+    radius: 0.5
+  
+  trails:
+    show: true
+    length: 10
+    player_alpha: 0.3
+    ball_alpha: 0.6
+    player_width: 1.5
+    ball_width: 2.0
+
+graph:
+  enabled: false
+  type: "none"
+  show_legend: false
+  legend_position: "upper right"
+  
+  edges:
+    home_team_color: "#0066CC"
+    away_team_color: "#CC0000"
+    ball_connection_color: "#FFD700"
+    line_width: 1.0
+    alpha: 0.4
+
+animation:
+  create: true
+  fps: 30
+  interval: 33
+  dpi: 150
+  format: "gif"
+
+output:
+  filename_pattern: "smoothed/fifa_{event_type}_{event_id}_{timestamp}"
