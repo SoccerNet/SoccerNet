@@ -31,8 +31,45 @@ Face by default (`source="HuggingFace"`); pass `source="EXRCSDrive"` to fall
 back to the legacy drive for anything not yet migrated. Call signatures and
 local folder layout are unchanged either way, and `password=` is accepted but
 ignored (with a warning) wherever access is now controlled by your Hugging
-Face account instead — run `huggingface-cli login` once, and request access
-on the dataset page for anything gated.
+Face account instead. For gated repositories, follow the access steps below.
+
+### Dataset access and NDA
+
+For datasets marked **NDA-gated**, access requires an electronic NDA signature
+and manual approval:
+
+1. Sign in to your [Hugging Face account](https://huggingface.co/login).
+2. Open the dataset repository you want to access.
+3. Complete the requested information, read the linked SoccerNet
+   Non-Disclosure Agreement, and electronically sign it using the
+   acknowledgment checkbox.
+4. Submit your request and wait for manual approval by the SoccerNet team.
+5. Download the dataset using the same account after approval.
+
+**Access is granted separately for each repository.** Approval for
+`SoccerNet_raw_HQ` does not automatically grant access to `SN-BAS-2024`,
+`SN-BAS-2025`, or `SN-PCBAS-2026`. Existing approvals for these repositories
+remain valid.
+
+### Download after approval
+
+Install the Hugging Face command-line tool and sign in with the account that
+received access:
+
+```bash
+pip install --upgrade huggingface_hub
+hf auth login
+```
+
+If prompted for an access token, use one from the approved account with read
+access to the dataset. For example, download `SN-BAS-2025` with:
+
+```bash
+hf download SoccerNet/SN-BAS-2025 --repo-type dataset --local-dir SoccerNet/SN-BAS-2025
+```
+
+Replace the repository ID and local directory with the dataset you want to
+download. Request access on that repository's page before downloading it.
 
 ### Datasets
 
@@ -46,8 +83,9 @@ on the dataset page for anything gated.
 | Player Tracking (legacy) | same data as `SN-Tracking-2023` | public |
 | Jersey Number Recognition 2023 | [`SN-Jersey-2023`](https://huggingface.co/datasets/SoccerNet/SN-Jersey-2023) | public |
 | Ball Action Spotting 2023 | [`SN-BAS-2023`](https://huggingface.co/datasets/SoccerNet/SN-BAS-2023) | **gated** |
-| Ball Action Spotting 2024 | [`SN-BAS-2024`](https://huggingface.co/datasets/SoccerNet/SN-BAS-2024) | public |
-| Ball Action Spotting 2025 | [`SN-BAS-2025`](https://huggingface.co/datasets/SoccerNet/SN-BAS-2025) | public |
+| Ball Action Spotting 2024 | [`SN-BAS-2024`](https://huggingface.co/datasets/SoccerNet/SN-BAS-2024) | **NDA-gated**; password-free ZIPs |
+| Ball Action Spotting 2025 | [`SN-BAS-2025`](https://huggingface.co/datasets/SoccerNet/SN-BAS-2025) | **NDA-gated**; password-free ZIPs |
+| Player-Centric Ball Action Spotting 2026 | [`SN-PCBAS-2026`](https://huggingface.co/datasets/SoccerNet/SN-PCBAS-2026) | **NDA-gated**; password-free ZIPs |
 | Action Spotting (all editions) | per-game features/labels — see below | public |
 | Dense Video Captioning 2023 / 2024 | per-game features/labels — see below | public |
 | Foul Recognition (MVFouls) 2024 | [`SN-MVFouls-2024`](https://huggingface.co/datasets/SoccerNet/SN-MVFouls-2024) | public |
@@ -157,14 +195,14 @@ mySoccerNetDownloader.downloadDataTask(task="caption-2023", split=["train", "val
 mySoccerNetDownloader.downloadDataTask(task="jersey-2023", split=["train", "test", "challenge"])
 mySoccerNetDownloader.downloadDataTask(task="reid-2023", split=["train", "valid", "test", "challenge"])
 mySoccerNetDownloader.downloadDataTask(task="spotting-2023", split=["train", "valid", "test", "challenge"])
-mySoccerNetDownloader.downloadDataTask(task="spotting-ball-2023", split=["train", "valid", "test", "challenge"]) # gated on Hugging Face - request access at https://huggingface.co/datasets/SoccerNet/SN-BAS-2023, then `huggingface-cli login`
+mySoccerNetDownloader.downloadDataTask(task="spotting-ball-2023", split=["train", "valid", "test", "challenge"]) # gated on Hugging Face - request access at https://huggingface.co/datasets/SoccerNet/SN-BAS-2023, then `hf auth login`
 mySoccerNetDownloader.downloadDataTask(task="tracking-2023", split=["train", "test", "challenge"])
 mySoccerNetDownloader.downloadDataTask(task="SpiideoSynLoc", split=["train","valid","test","challenge"]) # 4K Images
 mySoccerNetDownloader.downloadDataTask(task="SpiideoSynLoc", split=["train","valid","test","challenge"], version="fullhd") # FullHD Images
 
 # Download SoccerNet videos - fetched from SoccerNet/SoccerNet_raw_HQ (train/valid/test)
 # or SoccerNet/SoccerNet_raw_HQ_Challenge (challenge) by default; both gated,
-# request access on the dataset page then `huggingface-cli login` (no password needed)
+# request access on the dataset page then `hf auth login` (no password needed)
 mySoccerNetDownloader.downloadGames(files=["1_224p.mkv", "2_224p.mkv"], split=["train", "valid", "test"]) # download 224p Videos
 mySoccerNetDownloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv"], split=["train", "valid", "test"]) # download 720p Videos
 mySoccerNetDownloader.downloadRAWVideo(dataset="SoccerNet") # download 720p Videos
